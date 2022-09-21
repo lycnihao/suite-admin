@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://106.54.255.9:3306/bottle-admin?autoReconnect=true&useServerPreparedStmts=false&rewriteBatchedStatements=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=UTC
+    username: bottle-admin
+    password: cd3ACdicshD7kWfA
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          gitee:
+#            client-id: fb12c1d34597390886ffcf228af02e8179e6b09a9dc08fc46be2d2d11481cd68
+#            client-secret: 38ab1fd346d51b21de81eed78a767e2aa6202069f9f696f099bc0db90c1be614
+#            authorization-grant-type: authorization_code
+#            redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}'
+#            client-authentication-method: POST
+#            scope: user_info
+#        provider:
+#          gitee:
+#            authorization-uri: https://gitee.com/oauth/authorize
+#            token-uri: https://gitee.com/oauth/token
+#            user-info-uri: https://gitee.com/api/v5/user
+#            user-name-attribute: name
+
+logging:
+  level:
+    org.springframework.web: trace
+    org.springframework.security: trace
+    org.springframework.security.oauth2: debug
+    run.bottle.bottleadmin.security: debug

@@ -1,6 +1,3 @@
-> 本篇文章是使用Spring Security进行的一次总结，完整的程序代码可以在Github上找到。
-> 
-
 版本
 Java (1.8+)
 Spring Boot (2.7.3)

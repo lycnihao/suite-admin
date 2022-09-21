@@ -38,14 +38,15 @@ Srping Security主要解决的问题是安全访问控制，其实现原理是�
 
 ### DelegatingFilterProxy
 从必要知识里我们知道了Filter的工作原理，在Spring中使用自定义的Filter有个问题那就是Filter必须在Servlet容器启动前就注册好，但是Spring使用ContextLoaderListener来加载Spring Bean，于是设计了DelegatingFilterProxy。本质上来说DelegatingFilterProxy就是一个Filter，其间接实现了Filter接口，它嵌入在Servlet Filter Chain中，但是在doFilter中其实调用的从Spring 容器中获取到的代理Filter的实现类delegate。
-![delegating-filter-proxy](https://docs.spring.io/spring-security/reference/_images/servlet/architecture/filterchainproxy.png)
+![filterchainproxy](http://blog.bottle.run/upload/2022/09/filterchainproxy.png)
 
 ### FilterChainProxy和SecurityFilterChain
 
 FilterChainProxy 是 Spring Security 提供的一个特殊 Filter，DelegatingFilterProxy并不是直接实例化和调用Spring Security Filter，而是构建了一个FilterChainProxy，当有请求进来就会去执行doFilter方法调用SecurityFilterChain所包含的各个Filter，同时 这些Filter作为Bean被Spring管理，它是Spring Security使用的核心。
-![filter-chain-proxy](https://docs.spring.io/spring-security/reference/_images/servlet/architecture/securityfilterchain.png)
+![0d348e7a25374acd9118143e65e11ff7_tplv-k3u1fbpfcp-zoom-1](http://blog.bottle.run/upload/2022/09/0d348e7a25374acd9118143e65e11ff7_tplv-k3u1fbpfcp-zoom-1.png)
 
-此外，SecurityFilterChain 提供了更大的灵活性，Servlet容器中，仅根据URL调用过滤器。 但是，FilterChainProxy可以利用RequestMatcher接口，根据HttpServletRequest中的任何内容确定调用，比原生的Servlet更灵活，此外，FilterChainProxy可以构建多条SecurityFilterChain，你的应用程序可以为不同的情况提供完全独立的配置，如下图所示。![filter-chain-proxy](https://docs.spring.io/spring-security/reference/_images/servlet/architecture/multi-securityfilterchain.png)
+此外，SecurityFilterChain 提供了更大的灵活性，Servlet容器中，仅根据URL调用过滤器。 但是，FilterChainProxy可以利用RequestMatcher接口，根据HttpServletRequest中的任何内容确定调用，比原生的Servlet更灵活，此外，FilterChainProxy可以构建多条SecurityFilterChain，你的应用程序可以为不同的情况提供完全独立的配置，如下图所示。
+![54edc531b3504cbd93e42516bf4d762b_tplv-k3u1fbpfcp-zoom-1](http://blog.bottle.run/upload/2022/09/54edc531b3504cbd93e42516bf4d762b_tplv-k3u1fbpfcp-zoom-1.png)
 
 ### 过滤器链中主要的几个过滤器及其作用
 1. SecurityContextPersistenceFilter ：这个Filter是整个拦截过程的入口，会在请求开始时从配置好的 SecurityContextRepository 中获取 SecurityContext，然后把它设置给 SecurityContextHolder。在请求完成后将 SecurityContextHolder 持有的 SecurityContext 再保存到配置好的 SecurityContextRepository，同时清除 securityContextHolder 所持有的 SecurityContext。
@@ -55,7 +56,7 @@ FilterChainProxy 是 Spring Security 提供的一个特殊 Filter，DelegatingFi
 5. ExceptionTranslationFilter： 能够捕获来自 FilterChain 所有的异常，并进行处理。但是它只会处理两类异常： AuthenticationException 和 AccessDeniedException，其它的异常它会继续抛出。
 
 ### 异常处理
-![exception-translation-filter](https://segmentfault.com/img/bVbFsdo)
+![2506990179-5e84859ce3568_fix732](http://blog.bottle.run/upload/2022/09/2506990179-5e84859ce3568_fix732.png)
 
 1. 首先，ExceptionTranslationFilter 调用 FilterChain.doFilter(request, response) 来调用应用程序的其余部分。
 2. 如果用户未通过身份验证或者是 AuthenticationException，则启动身份验证。
@@ -547,7 +548,7 @@ response:
 }
 ```
 
-## 小结
+## 六、小结
 好了，就分享到这里了，希望对大家有所帮助，另外如有理解错误的地方请多多指教。
 Spring Security还有很多值得探索的功能，继续学习吧~
 

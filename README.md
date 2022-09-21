@@ -96,7 +96,7 @@ Security filter chain: [
 
 每个过滤器都有不同的功能，组织在一起形成了强大的安全体系，你可以在过滤链中自定义过滤器，里面的逻辑我就不一一细说了没啥好讲的，[官方文档](https://spring.io/projects/spring-security#learn)中都有介绍。下面讲讲我自己的一些实现吧。
 
-## 二、我实现思路是什么，我是怎么实现的
+## 四、我实现思路是什么，我是怎么实现的
 
 背景：拓展Spring Security实现基于Token的API认证授权基础程序
 
@@ -462,7 +462,7 @@ public class PermissionAuthorizationManager<T> implements AuthorizationManager<T
 }
 ```
 
-## 三、示例
+## 五、示例
 
 > 登录成功
 

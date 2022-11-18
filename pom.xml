@@ -14,7 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <bottleadmin.springboot.version>2.7.3</bottleadmin.springboot.version>
-<!--        <guava.version>28.2-jre</guava.version>-->
+        <swagger.version>3.0.0</swagger.version>
         <mysql.version>8.0.19</mysql.version>
         <apache.commons-lang3.version>3.12.0</apache.commons-lang3.version>
 
@@ -40,12 +40,12 @@
             </dependency>
             <!--BOM end-->
 
-            <!-- guava -->
-<!--            <dependency>-->
-<!--                <groupId>com.google.guava</groupId>-->
-<!--                <artifactId>guava</artifactId>-->
-<!--                <version>${guava.version}</version>-->
-<!--            </dependency>-->
+            <!-- swagger -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
 
             <!-- apache commons-lang3 -->
             <dependency>

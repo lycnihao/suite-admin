@@ -67,14 +67,16 @@ public class UserServiceImpl implements UserService {
 		if (optionalUser.isPresent()) {
 			throw new ServiceException(String.format("用户名 [%s] 已存在，请更换后再试吧。", userParam.getUsername()));
 		}
-		String encodePassword = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(userParam.getPassword());
 		User user = new User();
 		user.setUsername(userParam.getUsername());
 		user.setNickname(userParam.getNickname());
-		user.setPassword(encodePassword);
 		user.setEmail(userParam.getEmail());
 		user.setAvatar(userParam.getAvatar());
 		user.setDescription(userParam.getDescription());
+		if (StringUtils.hasLength(userParam.getPassword())) {
+			String encodePassword = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(userParam.getPassword());
+			user.setPassword(encodePassword);
+		}
 		userRepository.save(user);
 
 		List<UserRole> userRoles = userParam.getRoleIds().stream().map(roleId -> {
@@ -96,6 +98,10 @@ public class UserServiceImpl implements UserService {
 		User user = optionalUser.get();
 		user.setNickname(userParam.getNickname());
 		user.setEmail(userParam.getEmail());
+		if (StringUtils.hasLength(userParam.getPassword())) {
+			String encodePassword = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(userParam.getPassword());
+			user.setPassword(encodePassword);
+		}
 		// 更新用户信息
 		userRepository.save(user);
 		// 更新用户角色信息

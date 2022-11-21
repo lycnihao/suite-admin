@@ -49,6 +49,9 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
 		Optional<User> optionalUser = userRepository.findByUsername(username);
 		if (optionalUser.isPresent()) {
 			User user = optionalUser.get();
+			if (user.getDeletedFlag()) {
+				throw new UsernameNotFoundException(String.format("Username [%s] unavailable", username));
+			}
 			List<Role> roles = getRoleByUserId(user.getId());
 			return buildAppUserDetails(user, roles);
 		}

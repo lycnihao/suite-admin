@@ -9,6 +9,7 @@ import run.bottle.admin.repository.RolePermissionRepository;
 import run.bottle.admin.service.PermissionService;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,11 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
+	public List<Permission> listByRoleId(Long roleId) {
+		return this.listByRoleIds(Collections.singleton(roleId));
+	}
+
+	@Override
 	public List<Permission> listByRoleIds(Collection<Long> roleIds) {
 		List<RolePermission> rolePermissions = rolePermissionRepository.findAllByRoleIdIn(roleIds);
 		List<Long> permissionIds = rolePermissions.stream().map(RolePermission::getPermissionId).collect(Collectors.toList());
@@ -44,5 +50,15 @@ public class PermissionServiceImpl implements PermissionService {
 				.filter(permission -> !permission.getType()
 						.equals(PermissionTypeEnum.PERMISSIONS.getValue()))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Permission> getPermissions() {
+		return permissionRepository.findAll();
+	}
+
+	@Override
+	public List<Permission> getPermissionsByName(Collection<String> names) {
+		return permissionRepository.findByNameIn(names);
 	}
 }

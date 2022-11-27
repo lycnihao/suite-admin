@@ -1,11 +1,13 @@
 package run.bottle.admin.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.lang.NonNull;
 import run.bottle.admin.model.entity.Role;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Role Repository.
@@ -13,7 +15,7 @@ import java.util.List;
  * @author liyc
  * @date 2022-09-04
  */
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
 
 	/**
 	 * Find all by id list.
@@ -22,11 +24,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 	 */
 	List<Role> findAllByIdIn(@NonNull Collection<Long> ids);
 
-	/**
-	 * Find list by status
-	 * @param status a status of role must not be null
-	 * @return a list of role by status
-	 */
-	List<Role> findByStatus(@NonNull Integer status);
+	Optional<Role> findByCode(@NonNull String code);
 
 }

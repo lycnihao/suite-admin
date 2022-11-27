@@ -13,8 +13,14 @@ import java.util.List;
  */
 public interface PermissionService {
 
+	List<Permission> listByRoleId(Long roleId);
+
 	List<Permission> listByRoleIds(Collection<Long> roleIds);
 
 	List<Permission> getMenusByRoleIds(Collection<Long> roleIds);
+
+	List<Permission> getPermissions();
+
+	List<Permission> getPermissionsByName(Collection<String> names);
 
 }

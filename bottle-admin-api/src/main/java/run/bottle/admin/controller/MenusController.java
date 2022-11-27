@@ -33,13 +33,12 @@ public class MenusController {
 	 * @return 菜单
 	 */
 	@GetMapping("/menus")
-	public BaseResponse<Collection<MenuVo>> getUserInfo() {
+	public BaseResponse<Collection<MenuVo>> getMenus() {
 		AppUserDetails userDetails = SecurityContextUtils.getUserDetails();
 		List<Permission> permissions = permissionService.getMenusByRoleIds(userDetails.getRoleIds());
 		List<Permission> parentPermissions = permissions.stream().filter(permission -> permission.getParentId() != null && permission.getParentId() <= 0).collect(Collectors.toList());
 		return BaseResponse.ok(toMenusList(parentPermissions, permissions));
 	}
-
 
 	private List<MenuVo> toMenusList(List<Permission> permissions, List<Permission> allPermissions) {
 		List<MenuVo> menuVos = new ArrayList<>();

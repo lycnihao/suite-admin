@@ -102,7 +102,7 @@ public class UserController {
 	 * Add a user
 	 *
 	 * @param userParam Param
-	 * @return Update result
+	 * @return Add result
 	 */
 	@PostMapping("/user/add")
 	public BaseResponse<String> addUser(@RequestBody UserParam userParam) {

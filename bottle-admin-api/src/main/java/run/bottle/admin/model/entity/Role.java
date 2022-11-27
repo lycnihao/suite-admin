@@ -42,11 +42,4 @@ public class Role extends BaseEntity {
 	 */
 	@Column(name = "description", length = 127)
 	private String description;
-
-	/**
-	 * 状态: 1.正常 0.禁用
-	 */
-	@Column(name = "status", length = 2, nullable = false)
-	private Integer status;
-
 }

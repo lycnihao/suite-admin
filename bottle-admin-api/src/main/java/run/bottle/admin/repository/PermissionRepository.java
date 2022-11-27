@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import run.bottle.admin.model.entity.Permission;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * Permission repository.
  *
@@ -12,4 +15,7 @@ import run.bottle.admin.model.entity.Permission;
  */
 @Repository
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
+
+	List<Permission> findByNameIn(Collection<String> names);
+
 }

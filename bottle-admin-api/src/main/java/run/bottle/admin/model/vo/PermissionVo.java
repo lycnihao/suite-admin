@@ -1,6 +1,8 @@
 package run.bottle.admin.model.vo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import run.bottle.admin.model.entity.Permission;
 
 import java.util.List;
 
@@ -11,11 +13,10 @@ import java.util.List;
  * @date 2022-11-27
  */
 @Data
-public class PermissionVo {
+@NoArgsConstructor
+public class PermissionVo extends Permission {
 
-	private String name;
-
-	private String title;
+	private String parentName;
 
 	private List<PermissionVo> children;
 

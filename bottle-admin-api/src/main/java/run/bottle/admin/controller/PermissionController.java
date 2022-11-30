@@ -6,8 +6,8 @@ import run.bottle.admin.model.entity.Permission;
 import run.bottle.admin.model.support.BaseResponse;
 import run.bottle.admin.model.vo.PermissionVo;
 import run.bottle.admin.service.PermissionService;
+import run.bottle.admin.service.assembler.PermissionAssembler;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,33 +21,19 @@ import java.util.stream.Collectors;
 public class PermissionController {
 
 	private final PermissionService permissionService;
+	private final PermissionAssembler permissionAssembler;
 
-	public PermissionController(PermissionService permissionService) {
+	public PermissionController(PermissionService permissionService, PermissionAssembler permissionAssembler) {
 		this.permissionService = permissionService;
+		this.permissionAssembler = permissionAssembler;
 	}
 
 	@GetMapping("/permission/getAllPermissions")
 	public BaseResponse<List<PermissionVo>> listAllPermission() {
 		List<Permission> permissions = permissionService.getPermissions();
 		List<Permission> parentPermissions = permissions.stream().filter(permission -> permission.getParentId() != null && permission.getParentId() <= 0).collect(Collectors.toList());
-		return BaseResponse.ok(toPermissionVo(parentPermissions, permissions));
+		return BaseResponse.ok(permissionAssembler.toPermissionTree(parentPermissions, permissions));
 	}
 
-	private List<PermissionVo> toPermissionVo(List<Permission> permissions, List<Permission> allPermissions) {
-		List<PermissionVo> menuVos = new ArrayList<>();
-		for (Permission permission : permissions) {
-			PermissionVo permissionVo = new PermissionVo();
-			permissionVo.setName(permission.getName());
-			permissionVo.setTitle(permission.getTitle());
-			List<Permission> childrenList = allPermissions.stream()
-					.filter(p -> p.getParentId().equals(permission.getId()))
-					.collect(Collectors.toList());
-			if (!permissions.isEmpty()) {
-				List<PermissionVo> children = toPermissionVo(childrenList, allPermissions);
-				permissionVo.setChildren(children);
-			}
-			menuVos.add(permissionVo);
-		}
-		return menuVos;
-	}
+
 }

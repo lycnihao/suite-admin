@@ -44,10 +44,10 @@ public class Permission extends BaseEntity {
 
 	/**
 	 * 菜单类型
-	 * 1:一级菜单; 2:子菜单; 3:按钮权限
+	 * 1:目录; 2:菜单; 3:按钮
 	 */
 	@Column(name = "type", length = 127, nullable = false)
-	private Integer type = 0;
+	private Integer type = 1;
 
 	/**
 	 * 图标

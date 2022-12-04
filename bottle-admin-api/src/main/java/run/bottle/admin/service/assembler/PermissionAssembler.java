@@ -21,6 +21,7 @@ public class PermissionAssembler {
 		List<PermissionVo> menuVos = new ArrayList<>();
 		for (Permission permission : permissions) {
 			PermissionVo permissionVo = new PermissionVo();
+			permissionVo.setId(permission.getId());
 			permissionVo.setName(permission.getName());
 			permissionVo.setTitle(permission.getTitle());
 			permissionVo.setType(permission.getType());

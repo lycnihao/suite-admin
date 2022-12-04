@@ -1,6 +1,7 @@
 package run.bottle.admin.service;
 
 import run.bottle.admin.model.entity.Permission;
+import run.bottle.admin.model.params.PermissionParam;
 
 import java.util.Collection;
 import java.util.List;
@@ -22,5 +23,9 @@ public interface PermissionService {
 	List<Permission> getPermissions();
 
 	List<Permission> getPermissionsByName(Collection<String> names);
+
+	void savePermission(PermissionParam permissionParam);
+
+	void deletePermission(Long id);
 
 }

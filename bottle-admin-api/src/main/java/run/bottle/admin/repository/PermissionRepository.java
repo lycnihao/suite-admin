@@ -6,6 +6,7 @@ import run.bottle.admin.model.entity.Permission;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Permission repository.
@@ -15,6 +16,8 @@ import java.util.List;
  */
 @Repository
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
+
+	Optional<Permission> findByName(String name);
 
 	List<Permission> findByNameIn(Collection<String> names);
 

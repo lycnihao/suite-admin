@@ -102,6 +102,11 @@ public class PermissionServiceImpl implements PermissionService {
 
 	@Override
 	public void deletePermission(Long id) {
-		permissionRepository.deleteById(id);
+		List<RolePermission> rolePermissions = rolePermissionRepository.findByPermissionId(id);
+		if (rolePermissions.isEmpty()) {
+			permissionRepository.deleteById(id);
+		} else {
+			throw new ServiceException("当前菜单权限已存在绑定的角色，请解除绑定后再试");
+		}
 	}
 }

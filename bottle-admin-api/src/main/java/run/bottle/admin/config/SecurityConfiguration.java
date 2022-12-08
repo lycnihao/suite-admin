@@ -53,8 +53,7 @@ public class SecurityConfiguration {
 
 		http.authorizeHttpRequests()
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers("/user/info", "/role/info", "/menus", "/role/getAllRoles", "/permission/getAllPermissions").authenticated() // 需要认证
-				.anyRequest().access(permissionAuthorizationManager) // 动态权限认证
+				.anyRequest().access(permissionAuthorizationManager) // 动态权限认证（默认都需要登录）
 				.and()
 					.userDetailsService(userDetailsService)
 					.formLogin()

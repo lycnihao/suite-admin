@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import run.bottle.admin.model.entity.Permission;
 import run.bottle.admin.model.enums.PermissionTypeEnum;
 import run.bottle.admin.security.support.AppUserDetails;
@@ -59,11 +60,16 @@ public class PermissionAuthorizationManager<T> implements AuthorizationManager<T
 		log.debug("access url:{}", servletPath);
 
 		AppUserDetails userDetails = (AppUserDetails)authentication.get().getPrincipal();
-		List<Permission> permissions = permissionService.listByRoleIds(userDetails.getRoleIds());
-		boolean agreeFlag = permissions.stream()
-				.anyMatch(permission -> isUrlPermission(permission) && permission.getPath().equals(servletPath));
-		log.debug("check result:{}", agreeFlag);
-		return new AuthorizationDecision(agreeFlag);
+		List<Permission> permissionAllLis = permissionService.getPermissionsByType(PermissionTypeEnum.PERMISSIONS);
+		if (permissionAllLis.stream().anyMatch(permission -> StringUtils.hasLength(permission.getPath()) &&
+						permission.getPath().equals(servletPath))) {
+			List<Permission> permissions = permissionService.listByRoleIds(userDetails.getRoleIds());
+			boolean agreeFlag = permissions.stream()
+					.anyMatch(permission -> isUrlPermission(permission) && permission.getPath().equals(servletPath));
+			log.debug("check result:{}", agreeFlag);
+			return new AuthorizationDecision(agreeFlag);
+		}
+		return new AuthorizationDecision(true);
 	}
 
 	private boolean isGranted(Authentication authentication) {

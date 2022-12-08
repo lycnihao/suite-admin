@@ -1,6 +1,7 @@
 package run.bottle.admin.service;
 
 import run.bottle.admin.model.entity.Permission;
+import run.bottle.admin.model.enums.PermissionTypeEnum;
 import run.bottle.admin.model.params.PermissionParam;
 
 import java.util.Collection;
@@ -21,6 +22,8 @@ public interface PermissionService {
 	List<Permission> getMenusByRoleIds(Collection<Long> roleIds);
 
 	List<Permission> getPermissions();
+
+	List<Permission> getPermissionsByType(PermissionTypeEnum permissionTypeEnum);
 
 	List<Permission> getPermissionsByName(Collection<String> names);
 

@@ -59,6 +59,11 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
+	public List<Permission> getPermissionsByType(PermissionTypeEnum permissionTypeEnum) {
+		return permissionRepository.findByType(permissionTypeEnum.getValue());
+	}
+
+	@Override
 	public List<Permission> getPermissionsByName(Collection<String> names) {
 		return permissionRepository.findByNameIn(names);
 	}

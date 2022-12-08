@@ -104,7 +104,7 @@ public class RoleController {
 	 */
 	@PostMapping("/role/delete")
 	public BaseResponse<String> deleteRole(@RequestBody Long roleId) {
-		roleService.findById(roleId);
+		roleService.deleteRole(roleId);
 		return BaseResponse.ok("角色删除成功");
 	}
 }

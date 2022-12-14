@@ -19,7 +19,7 @@ import run.bottle.admin.service.PermissionService;
 import run.bottle.admin.service.RolePermissionService;
 import run.bottle.admin.service.RoleService;
 
-import javax.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Predicate;
 import java.util.*;
 import java.util.stream.Collectors;
 

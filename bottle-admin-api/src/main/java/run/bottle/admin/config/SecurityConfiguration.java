@@ -1,6 +1,7 @@
 package run.bottle.admin.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,6 +12,8 @@ import org.springframework.security.web.access.intercept.RequestAuthorizationCon
 import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.AnyRequestMatcher;
 import run.bottle.admin.cache.AbstractStringCacheStore;
 import run.bottle.admin.security.authorization.PermissionAuthorizationManager;
 import run.bottle.admin.security.filter.AuthenticationTokenFilter;
@@ -26,7 +29,7 @@ import run.bottle.admin.security.service.AppUserDetailsService;
  * @author liyc
  * @date 2022-08-25
  */
-@EnableWebSecurity(debug = false)
+@Configuration
 public class SecurityConfiguration {
 
 	private final AppUserDetailsService userDetailsService;
@@ -45,35 +48,30 @@ public class SecurityConfiguration {
 	public WebSecurityCustomizer webSecurityCustomizer() {
 		return (web) -> web.ignoring()
 				// Spring Security should completely ignore URLs starting with /resources/
-				.antMatchers("/resources/**");
+				.requestMatchers("/resources/**");
 	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-		http.authorizeHttpRequests()
-				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.anyRequest().access(permissionAuthorizationManager) // 动态权限认证（默认都需要登录）
-				.and()
-					.userDetailsService(userDetailsService)
-					.formLogin()
-					.permitAll()
-					.successHandler(new CustomizeAuthenticationSuccessHandler(cacheStore))
-					.failureHandler(new AuthenticationEntryPointFailureHandler(new CustomizeAuthenticationEntryPoint()))
-				.and()
-					.logout()
-					.logoutSuccessHandler(new CustomizeLogoutSuccessHandler(cacheStore))
-				.and()
-					.exceptionHandling()
-					.authenticationEntryPoint(new CustomizeAuthenticationEntryPoint())
-					.accessDeniedHandler(new CustomizeAccessDeniedHandler())
-				.and()
-					.csrf().disable()
-					.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
-					.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
-					.addFilterBefore(authenticationTokenFilter, LogoutFilter.class);
+		http
+				.csrf().disable()
+				.userDetailsService(userDetailsService)
+				.sessionManagement((authorize) ->
+						authorize.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authorizeHttpRequests((authorize) -> authorize
+						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+						// 动态权限认证（默认都需要登录）
+						.anyRequest().access(permissionAuthorizationManager))
+				.formLogin((authorize) -> authorize.permitAll()
+						.successHandler(new CustomizeAuthenticationSuccessHandler(cacheStore))
+						.failureHandler(new AuthenticationEntryPointFailureHandler(new CustomizeAuthenticationEntryPoint())))
+				.logout((authorize) -> authorize
+						.logoutSuccessHandler(new CustomizeLogoutSuccessHandler(cacheStore)))
+				.exceptionHandling(exceptionHandling -> exceptionHandling
+						.authenticationEntryPoint(new CustomizeAuthenticationEntryPoint())
+						.accessDeniedHandler(new CustomizeAccessDeniedHandler()))
+				.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(authenticationTokenFilter, LogoutFilter.class);
 		return http.build();
 	}
 

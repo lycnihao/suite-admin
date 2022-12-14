@@ -19,7 +19,7 @@ import run.bottle.admin.repository.UserRepository;
 import run.bottle.admin.service.UserRoleService;
 import run.bottle.admin.service.UserService;
 
-import javax.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Predicate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;

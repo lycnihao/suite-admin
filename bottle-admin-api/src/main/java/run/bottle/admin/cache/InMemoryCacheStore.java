@@ -1,11 +1,11 @@
 package run.bottle.admin.cache;
 
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.util.Assert;
 
-import javax.annotation.PreDestroy;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.TimerTask;

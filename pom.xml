@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-        <bottleadmin.springboot.version>2.7.3</bottleadmin.springboot.version>
+        <bottleadmin.springboot.version>3.0.0</bottleadmin.springboot.version>
         <swagger.version>3.0.0</swagger.version>
         <mysql.version>8.0.19</mysql.version>
         <apache.commons-lang3.version>3.12.0</apache.commons-lang3.version>

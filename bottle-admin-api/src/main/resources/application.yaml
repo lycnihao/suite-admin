@@ -1,9 +1,6 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.134.120.64:3306/bottle-admin?autoReconnect=true&useServerPreparedStmts=false&rewriteBatchedStatements=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=UTC
-    username: bottle-admin
-    password: GcAWadsSACxrZ8W2
+  profiles:
+    active: dev
   jpa:
     hibernate:
       ddl-auto: update

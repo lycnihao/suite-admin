@@ -13,11 +13,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-        <bottleadmin.springboot.version>3.0.0</bottleadmin.springboot.version>
+        <bottleadmin.springboot.version>3.0.2</bottleadmin.springboot.version>
         <swagger.version>3.0.0</swagger.version>
-        <mysql.version>8.0.19</mysql.version>
         <apache.commons-lang3.version>3.12.0</apache.commons-lang3.version>
-
     </properties>
 
     <dependencies>
@@ -53,13 +51,6 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${apache.commons-lang3.version}</version>
             </dependency>
-
-            <!--mysql-->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -71,6 +62,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

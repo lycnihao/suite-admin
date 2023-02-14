@@ -1,17 +1,24 @@
 spring:
-  profiles:
-    active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/suite_admin
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
 logging:
   level:
-    org.springframework.web: trace
-    org.springframework.security: trace
+    org.springframework.web: debug
+    org.springframework.security: debug
     org.springframework.security.oauth2: debug
-    run.bottle.bottleadmin.security: debug

@@ -18,9 +18,9 @@ import org.springframework.lang.Nullable;
 public class BaseResponse<T> {
 
 	/**
-	 * Response status.
+	 * Response code.
 	 */
-	private Integer status;
+	private Integer code;
 
 	/**
 	 * Response message.
@@ -37,8 +37,8 @@ public class BaseResponse<T> {
 	 */
 	private T data;
 
-	public BaseResponse(Integer status, String message, T data) {
-		this.status = status;
+	public BaseResponse(Integer code, String message, T data) {
+		this.code = code;
 		this.message = message;
 		this.data = data;
 	}

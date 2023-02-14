@@ -22,7 +22,7 @@ public class CustomizeAccessDeniedHandler implements AccessDeniedHandler {
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		BaseResponse<Object> errorDetail = new BaseResponse<>();
-		errorDetail.setStatus(HttpStatus.FORBIDDEN.value());
+		errorDetail.setCode(HttpStatus.FORBIDDEN.value());
 		errorDetail.setMessage("禁止访问");
 		response.setCharacterEncoding("utf-8");
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);

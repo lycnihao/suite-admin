@@ -39,7 +39,7 @@ public class CustomizeAuthenticationEntryPoint implements AuthenticationEntryPoi
 		Assert.notNull(t, "Throwable must not be null");
 
 		BaseResponse<Object> errorDetail = new BaseResponse<>();
-		errorDetail.setStatus(HttpStatus.UNAUTHORIZED.value());
+		errorDetail.setCode(HttpStatus.UNAUTHORIZED.value());
 
 		if (log.isDebugEnabled()) {
 			errorDetail.setDevMessage(ExceptionUtils.getStackTrace(t));

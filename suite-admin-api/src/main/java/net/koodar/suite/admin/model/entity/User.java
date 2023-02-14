@@ -66,14 +66,12 @@ public class User extends BaseEntity {
 	 * 状态: 1.正常 0.禁用
 	 */
 	@Column(name = "status")
-	@ColumnDefault("1")
 	private Integer status = 1;
 
 	/**
 	 * 删除状态: 0.正常 1.已删除
 	 */
 	@Column(name = "deleted_flag")
-	@ColumnDefault("0")
 	private Boolean deletedFlag = false;
 
 	@Override

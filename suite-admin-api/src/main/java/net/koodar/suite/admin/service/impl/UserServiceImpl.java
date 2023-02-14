@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -36,9 +36,12 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final UserRoleService userRoleService;
 
-	public UserServiceImpl(UserRepository userRepository, UserRoleService userRoleService) {
+	private final PasswordEncoder passwordEncoder;
+
+	public UserServiceImpl(UserRepository userRepository, UserRoleService userRoleService, PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.userRoleService = userRoleService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -73,7 +76,7 @@ public class UserServiceImpl implements UserService {
 		user.setAvatar(userParam.getAvatar());
 		user.setDescription(userParam.getDescription());
 		if (StringUtils.hasLength(userParam.getPassword())) {
-			String encodePassword = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(userParam.getPassword());
+			String encodePassword = passwordEncoder.encode(userParam.getPassword());
 			user.setPassword(encodePassword);
 		}
 		userRepository.save(user);
@@ -98,7 +101,7 @@ public class UserServiceImpl implements UserService {
 		user.setNickname(userParam.getNickname());
 		user.setEmail(userParam.getEmail());
 		if (StringUtils.hasLength(userParam.getPassword())) {
-			String encodePassword = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(userParam.getPassword());
+			String encodePassword = passwordEncoder.encode(userParam.getPassword());
 			user.setPassword(encodePassword);
 		}
 		// 更新用户信息

@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.security.token;
+package net.koodar.suite.admin.security.jwt;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -26,6 +26,7 @@ public class AuthToken {
 	/**
 	 * Refresh token.
 	 */
+	@Deprecated
 	@JsonProperty("refresh_token")
 	private String refreshToken;
 

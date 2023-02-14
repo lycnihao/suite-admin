@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import net.koodar.suite.admin.cache.AbstractStringCacheStore;
 import net.koodar.suite.admin.model.support.BaseResponse;
-import net.koodar.suite.admin.security.util.SecurityUtils;
 import net.koodar.suite.admin.util.JsonUtils;
 
 import jakarta.servlet.ServletException;
@@ -24,35 +23,12 @@ import java.util.Objects;
 @Slf4j
 public class CustomizeLogoutSuccessHandler implements LogoutSuccessHandler {
 
-	private final AbstractStringCacheStore cacheStore;
-
-	public CustomizeLogoutSuccessHandler(AbstractStringCacheStore cacheStore) {
-		this.cacheStore = cacheStore;
-	}
-
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
 		if (Objects.isNull(authentication)) {
 			return;
 		}
-
-		AppUserDetails userDetails = (AppUserDetails) authentication.getPrincipal();
-
-		// Clear access token
-		cacheStore.getAny(SecurityUtils.buildAccessTokenKey(userDetails), String.class)
-				.ifPresent(accessToken -> {
-					// Delete token
-					cacheStore.delete(SecurityUtils.buildTokenAccessKey(accessToken));
-					cacheStore.delete(SecurityUtils.buildAccessTokenKey(userDetails));
-				});
-
-		// Clear refresh token
-		cacheStore.getAny(SecurityUtils.buildRefreshTokenKey(userDetails), String.class)
-				.ifPresent(refreshToken -> {
-					cacheStore.delete(SecurityUtils.buildTokenRefreshKey(refreshToken));
-					cacheStore.delete(SecurityUtils.buildRefreshTokenKey(userDetails));
-				});
 
 		response.setCharacterEncoding("utf-8");
 		response.setStatus(HttpServletResponse.SC_OK);

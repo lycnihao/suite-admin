@@ -1,13 +1,13 @@
 package net.koodar.suite.admin.controller;
 
 import net.koodar.suite.admin.security.support.AppUserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import net.koodar.suite.admin.model.entity.Permission;
 import net.koodar.suite.admin.model.support.BaseResponse;
 import net.koodar.suite.admin.model.vo.PermissionMetaVo;
 import net.koodar.suite.admin.model.vo.MenuVo;
-import net.koodar.suite.admin.security.util.SecurityContextUtils;
 import net.koodar.suite.admin.service.PermissionService;
 
 import java.util.*;
@@ -33,7 +33,7 @@ public class MenusController {
 	 */
 	@GetMapping("/menus")
 	public BaseResponse<Collection<MenuVo>> getMenus() {
-		AppUserDetails userDetails = SecurityContextUtils.getUserDetails();
+		AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Permission> permissions = permissionService.getMenusByRoleIds(userDetails.getRoleIds());
 		List<Permission> parentPermissions = permissions.stream().filter(permission -> permission.getParentId() != null && permission.getParentId() <= 0).collect(Collectors.toList());
 		return BaseResponse.ok(toMenusList(parentPermissions, permissions));

@@ -1,23 +1,23 @@
 package net.koodar.suite.admin.security.filter;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.admin.security.service.AppUserDetailsService;
+import net.koodar.suite.admin.security.service.jwt.JwtService;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import net.koodar.suite.admin.cache.AbstractStringCacheStore;
-import net.koodar.suite.admin.security.util.SecurityUtils;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Authentication Token Filter.
@@ -25,52 +25,48 @@ import java.util.Optional;
  * @author liyc
  */
 @Slf4j
+@Component
+@RequiredArgsConstructor
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
-	private static final String AUTHENTICATION_SCHEME_BEARER = "Bearer";
+	private static final String AUTHENTICATION_SCHEME = "Bearer ";
 
-	private final AbstractStringCacheStore cacheStore;
 	private final AppUserDetailsService appUserDetailsService;
-
-	public AuthenticationTokenFilter(AbstractStringCacheStore cacheStore, AppUserDetailsService appUserDetailsService) {
-		this.cacheStore = cacheStore;
-		this.appUserDetailsService = appUserDetailsService;
-	}
+	private final JwtService jwtService;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-		// Get token from request header
-		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		// Get authorization from request header
+		final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+		final String jwt;
+		final String userEmail;
 
-		if (!StringUtils.hasText(accessToken)) {
+		if (!StringUtils.hasText(authHeader) || !StringUtils.startsWithIgnoreCase(authHeader, AUTHENTICATION_SCHEME)) {
 			// Do filter
 			filterChain.doFilter(request, response);
 			return;
 		}
 
-		if (!StringUtils.startsWithIgnoreCase(accessToken, AUTHENTICATION_SCHEME_BEARER)) {
-			throw new BadCredentialsException("Token 必须以bearer开头");
+		// Get jwt token
+		jwt = authHeader.substring(AUTHENTICATION_SCHEME.length());
+
+		userEmail = jwtService.extractUsername(jwt);
+
+		if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+			UserDetails userDetails = appUserDetailsService.loadUserByUsername(userEmail);
+			if (jwtService.isTokenValid(jwt, userDetails)) {
+				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+						userDetails,
+						null,
+						userDetails.getAuthorities()
+				);
+				authentication.setDetails(
+						new WebAuthenticationDetailsSource().buildDetails(request)
+				);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
 		}
-		if (accessToken.equalsIgnoreCase(AUTHENTICATION_SCHEME_BEARER)) {
-			throw new BadCredentialsException("Token 不能为空");
-		}
-
-		// Get token body
-		accessToken = accessToken.substring(AUTHENTICATION_SCHEME_BEARER.length() + 1);
-
-		Optional<Long> optionalUserId = cacheStore.getAny(SecurityUtils.buildTokenAccessKey(accessToken), Long.class);
-		if (!optionalUserId.isPresent()) {
-			log.debug("Token 已过期或不存在 [{}]", accessToken);
-			filterChain.doFilter(request, response);
-			return;
-		}
-
-		UserDetails userDetails = appUserDetailsService.loadUserById(optionalUserId.get());
-		UsernamePasswordAuthenticationToken authentication =
-				new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		// Do filter
 		filterChain.doFilter(request, response);

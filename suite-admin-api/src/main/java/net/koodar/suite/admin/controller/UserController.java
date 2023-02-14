@@ -5,6 +5,7 @@ import net.koodar.suite.admin.security.support.AppUserDetails;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import net.koodar.suite.admin.model.entity.Permission;
 import net.koodar.suite.admin.model.entity.Role;
@@ -15,7 +16,6 @@ import net.koodar.suite.admin.model.support.BaseResponse;
 import net.koodar.suite.admin.model.vo.PairVo;
 import net.koodar.suite.admin.model.vo.UserListVo;
 import net.koodar.suite.admin.model.vo.UserVo;
-import net.koodar.suite.admin.security.util.SecurityContextUtils;
 import net.koodar.suite.admin.service.PermissionService;
 import net.koodar.suite.admin.service.RoleService;
 import net.koodar.suite.admin.service.UserService;
@@ -54,7 +54,7 @@ public class UserController {
 	 */
 	@GetMapping("/user/info")
 	public BaseResponse<UserVo> getUserInfo() {
-		AppUserDetails userDetails = SecurityContextUtils.getUserDetails();
+		AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		User user = userService.loadUserById(userDetails.getUserId());
 		UserVo userVo = userAssembler.convertToUserVo(user);

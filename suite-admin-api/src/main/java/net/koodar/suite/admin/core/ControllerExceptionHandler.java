@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.exception.handler;
+package net.koodar.suite.admin.core;
 
 import io.jsonwebtoken.lang.Assert;
 import lombok.extern.slf4j.Slf4j;

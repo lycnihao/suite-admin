@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final UserRoleService userRoleService;
-
 	private final PasswordEncoder passwordEncoder;
 
 	public UserServiceImpl(UserRepository userRepository, UserRoleService userRoleService, PasswordEncoder passwordEncoder) {
@@ -93,11 +92,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void updateUser(UserParam userParam) {
-		Optional<User> optionalUser = userRepository.findById(userParam.getUserId());
-		if (!optionalUser.isPresent()) {
-			throw new ServiceException(String.format("userId [%s] not found in db", userParam.getUserId()));
-		}
-		User user = optionalUser.get();
+		User user = this.loadUserById(userParam.getUserId());
 		user.setNickname(userParam.getNickname());
 		user.setEmail(userParam.getEmail());
 		if (StringUtils.hasLength(userParam.getPassword())) {
@@ -112,12 +107,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUser(Long id) {
-		Optional<User> optionalUser = userRepository.findById(id);
-		if (!optionalUser.isPresent()) {
-			throw new ServiceException(String.format("userId [%s] not found in db", id));
-		}
-		User user = optionalUser.get();
+		User user = this.loadUserById(id);
 		user.setDeletedFlag(true);
+		userRepository.save(user);
+	}
+
+	@Override
+	public void updatePassword(Long userId, String oldPassword, String newPassword) {
+		User user = this.loadUserById(userId);
+		if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+			throw new ServiceException("原密码错误，请重新输入。");
+		}
+		user.setPassword(passwordEncoder.encode(newPassword));
 		userRepository.save(user);
 	}
 

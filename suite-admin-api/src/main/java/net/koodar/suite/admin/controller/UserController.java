@@ -133,4 +133,18 @@ public class UserController {
 		return BaseResponse.ok("用户删除成功");
 	}
 
+	/**
+	 * 修改当前用户密码
+	 * @param oldPassword 原密码
+	 * @param newPassword 新密码
+	 * @return BaseResponse
+	 */
+	@PostMapping("/user/updatePassword")
+	public BaseResponse<String> updatePassword(@RequestParam String oldPassword,
+											   @RequestParam String newPassword) {
+		AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userService.updatePassword(userDetails.getUserId(), oldPassword, newPassword);
+		return BaseResponse.ok("用户密码修改成功");
+	}
+
 }

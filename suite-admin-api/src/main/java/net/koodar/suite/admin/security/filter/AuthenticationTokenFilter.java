@@ -42,7 +42,8 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 		final String jwt;
 		final String userEmail;
 
-		if (!StringUtils.hasText(authHeader) || !StringUtils.startsWithIgnoreCase(authHeader, AUTHENTICATION_SCHEME)) {
+		var isLogin = "/login".equals(request.getServletPath());
+		if (!StringUtils.hasText(authHeader) || !StringUtils.startsWithIgnoreCase(authHeader, AUTHENTICATION_SCHEME) || isLogin) {
 			// Do filter
 			filterChain.doFilter(request, response);
 			return;

@@ -41,7 +41,7 @@ public class PermissionController {
 	 * @return Add result
 	 */
 	@PostMapping("/permission/add")
-	public BaseResponse<String> addPermission(PermissionParam permissionParam) {
+	public BaseResponse<String> addPermission(@RequestBody PermissionParam permissionParam) {
 		permissionService.savePermission(permissionParam);
 		return BaseResponse.ok("添加成功");
 	}
@@ -53,7 +53,7 @@ public class PermissionController {
 	 * @return Update result
 	 */
 	@PostMapping("/permission/update")
-	public BaseResponse<String> updatePermission(PermissionParam permissionParam) {
+	public BaseResponse<String> updatePermission(@RequestBody PermissionParam permissionParam) {
 		permissionService.savePermission(permissionParam);
 		return BaseResponse.ok("更新成功");
 	}

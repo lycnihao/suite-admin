@@ -63,8 +63,8 @@ public class RoleController {
 		List<Permission> permissions = permissionService.listByRoleId(id);
 		List<String> rolePermissions = permissions.stream().map(Permission::getName).collect(Collectors.toList());
 		roleVo.setRoleId(role.getId());
-		roleVo.setRoleCode(role.getCode());
-		roleVo.setRoleName(role.getName());
+		roleVo.setCode(role.getCode());
+		roleVo.setName(role.getName());
 		roleVo.setDescription(role.getDescription());
 		roleVo.setPermissions(rolePermissions);
 		return BaseResponse.ok(roleVo);

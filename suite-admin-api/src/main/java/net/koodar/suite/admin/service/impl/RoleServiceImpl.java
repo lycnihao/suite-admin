@@ -121,8 +121,10 @@ public class RoleServiceImpl implements RoleService {
 				predicates.add(
 						criteriaBuilder.like(root.get("name"), roleQuery.getRoleName() + "%"));
 			}
-
-			return query.where(predicates.toArray(new Predicate[0])).getRestriction();
+			if (predicates.size() > 0) {
+				query.where(predicates.toArray(new Predicate[0]));
+			}
+			return query.getRestriction();
 		};
 	}
 }

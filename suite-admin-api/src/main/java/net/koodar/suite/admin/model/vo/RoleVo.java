@@ -14,9 +14,9 @@ public class RoleVo {
 
 	private Long roleId;
 
-	private String roleName;
+	private String name;
 
-	private String roleCode;
+	private String code;
 
 	private String description;
 

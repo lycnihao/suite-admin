@@ -46,36 +46,30 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 	@Override
 	public void bindRoleWithUser(Long roleId, Collection<String> permissionNames) {
 
+		// 需要绑定的所有权限
 		List<Permission> permissions = permissionService.getPermissionsByName(permissionNames);
-		List<Long> permissionIds = permissions.stream().map(Permission::getId).collect(Collectors.toList());
+		List<Long> permissionIds = permissions.stream().map(Permission::getId).toList();
 
+		// 用户已经绑定的权限
 		List<RolePermission> rolePermissions = rolePermissionRepository.findByRoleId(roleId);
+		List<Long> rolePermissionIds = rolePermissions.stream().map(RolePermission::getPermissionId).toList();
 
-		// 需要删除的权限
-		List<RolePermission> extraPermissions = rolePermissions.stream()
-				.filter(rolePermission -> !permissionIds.contains(rolePermission.getPermissionId()))
-				.collect(Collectors.toList());
-		rolePermissionRepository.deleteAll(extraPermissions);
+		// 删除多余权限
+		for (RolePermission rolePermission : rolePermissions) {
+			if (!permissionIds.contains(rolePermission.getPermissionId())) {
+				rolePermissionRepository.delete(rolePermission);
+			}
+		}
 
-		// 角色权限
-		List<Long> userPermissionIds = permissionIds.stream()
-				.filter(permissionId -> extraPermissions.stream()
-						.noneMatch(extraRole -> extraRole.getPermissionId().equals(permissionId)))
-				.collect(Collectors.toList());
+		// 增加缺少的权限
+		for (Long permissionId : permissionIds) {
+			if (!rolePermissionIds.contains(permissionId)) {
+				RolePermission rolePermission = new RolePermission();
+				rolePermission.setRoleId(roleId);
+				rolePermission.setPermissionId(permissionId);
+				rolePermissionRepository.save(rolePermission);
+			}
+		}
 
-		// 需要新增的权限
-		List<Long> missingPermissions = permissionIds.stream()
-				.filter(permissionId -> !userPermissionIds.contains(permissionId))
-				.collect(Collectors.toList());
-
-		// 组装RolePermission
-		List<RolePermission> savePermissions = missingPermissions.stream().map(permissionId -> {
-			RolePermission rolePermission = new RolePermission();
-			rolePermission.setRoleId(roleId);
-			rolePermission.setPermissionId(permissionId);
-			return rolePermission;
-		}).collect(Collectors.toList());
-
-		rolePermissionRepository.saveAll(savePermissions);
 	}
 }

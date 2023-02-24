@@ -1,14 +1,14 @@
 package net.koodar.suite.admin.config;
 
 import lombok.RequiredArgsConstructor;
+import net.koodar.suite.admin.security.authentication.CustomizeAuthenticationSuccessHandler;
+import net.koodar.suite.admin.security.authentication.CustomizeLogoutSuccessHandler;
 import net.koodar.suite.admin.security.authorization.PermissionAuthorizationManager;
-import net.koodar.suite.admin.security.filter.AuthenticationTokenFilter;
-import net.koodar.suite.admin.security.handler.CustomizeAccessDeniedHandler;
-import net.koodar.suite.admin.security.handler.CustomizeAuthenticationEntryPoint;
-import net.koodar.suite.admin.security.handler.CustomizeAuthenticationSuccessHandler;
-import net.koodar.suite.admin.security.handler.CustomizeLogoutSuccessHandler;
-import net.koodar.suite.admin.security.service.AppUserDetailsService;
-import net.koodar.suite.admin.security.service.jwt.JwtService;
+import net.koodar.suite.admin.security.authentication.AuthenticationTokenFilter;
+import net.koodar.suite.admin.security.authorization.CustomizeAccessDeniedHandler;
+import net.koodar.suite.admin.security.authorization.CustomizeAuthenticationEntryPoint;
+import net.koodar.suite.admin.security.authentication.service.AppUserDetailsService;
+import net.koodar.suite.admin.security.authentication.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

@@ -1,6 +1,7 @@
 package net.koodar.suite.admin.security.authorization;
 
 import lombok.extern.slf4j.Slf4j;
+import net.koodar.suite.admin.security.authentication.AppUserDetails;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -10,10 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import net.koodar.suite.admin.model.entity.Permission;
-import net.koodar.suite.admin.model.enums.PermissionTypeEnum;
-import net.koodar.suite.admin.security.support.AppUserDetails;
-import net.koodar.suite.admin.service.PermissionService;
+import net.koodar.suite.admin.module.system.model.entity.Permission;
+import net.koodar.suite.admin.module.system.model.enums.PermissionTypeEnum;
+import net.koodar.suite.admin.module.system.service.PermissionService;
 
 import java.util.Collection;
 import java.util.List;

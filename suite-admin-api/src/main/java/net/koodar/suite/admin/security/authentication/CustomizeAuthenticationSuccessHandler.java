@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.admin.common.util.JsonUtils;
-import net.koodar.suite.admin.module.system.model.support.BaseResponse;
+import net.koodar.suite.admin.common.BaseResponse;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

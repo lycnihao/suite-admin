@@ -11,9 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import net.koodar.suite.admin.module.system.model.entity.Permission;
-import net.koodar.suite.admin.module.system.model.enums.PermissionTypeEnum;
-import net.koodar.suite.admin.module.system.service.PermissionService;
+import net.koodar.suite.admin.module.system.permission.domain.Permission;
+import net.koodar.suite.admin.module.system.permission.domain.PermissionTypeEnum;
+import net.koodar.suite.admin.module.system.permission.service.PermissionService;
 
 import java.util.Collection;
 import java.util.List;

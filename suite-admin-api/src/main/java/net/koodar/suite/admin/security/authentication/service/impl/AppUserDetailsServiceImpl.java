@@ -1,7 +1,7 @@
 package net.koodar.suite.admin.security.authentication.service.impl;
 
-import net.koodar.suite.admin.module.system.repository.RoleRepository;
-import net.koodar.suite.admin.module.system.repository.UserRepository;
+import net.koodar.suite.admin.module.system.role.repository.RoleRepository;
+import net.koodar.suite.admin.module.system.user.repository.UserRepository;
 import net.koodar.suite.admin.security.authentication.service.AppUserDetailsService;
 import net.koodar.suite.admin.security.authentication.AppUserDetails;
 import org.springframework.lang.NonNull;
@@ -9,10 +9,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import net.koodar.suite.admin.module.system.model.entity.Role;
-import net.koodar.suite.admin.module.system.model.entity.User;
-import net.koodar.suite.admin.module.system.model.entity.UserRole;
-import net.koodar.suite.admin.module.system.repository.UserRoleRepository;
+import net.koodar.suite.admin.module.system.role.domain.Role;
+import net.koodar.suite.admin.module.system.user.domain.User;
+import net.koodar.suite.admin.module.system.role.domain.UserRole;
+import net.koodar.suite.admin.module.system.role.repository.UserRoleRepository;
 
 import java.util.ArrayList;
 import java.util.List;

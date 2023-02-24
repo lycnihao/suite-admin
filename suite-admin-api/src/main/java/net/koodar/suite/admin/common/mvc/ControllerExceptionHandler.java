@@ -3,7 +3,7 @@ package net.koodar.suite.admin.common.mvc;
 import io.jsonwebtoken.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.admin.exception.ServiceException;
-import net.koodar.suite.admin.module.system.model.support.BaseResponse;
+import net.koodar.suite.admin.common.BaseResponse;
 import net.koodar.suite.admin.common.util.ExceptionUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

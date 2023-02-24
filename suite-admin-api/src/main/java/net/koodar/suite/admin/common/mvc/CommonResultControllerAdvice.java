@@ -1,6 +1,6 @@
 package net.koodar.suite.admin.common.mvc;
 
-import net.koodar.suite.admin.module.system.model.support.BaseResponse;
+import net.koodar.suite.admin.common.BaseResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -2,7 +2,7 @@ package net.koodar.suite.admin.module.system.user.service;
 
 import lombok.RequiredArgsConstructor;
 import net.koodar.suite.admin.exception.ServiceException;
-import net.koodar.suite.admin.module.system.role.service.UserRoleService;
+import net.koodar.suite.admin.module.system.user.manager.UserRoleManager;
 import net.koodar.suite.admin.module.system.user.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * User Service Impl.
+ * User Service.
  *
  * @author liyc
  */
@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
 	private final UserRepository userRepository;
-	private final UserRoleService userRoleService;
+	private final UserRoleManager userRoleManager;
 	private final PasswordEncoder passwordEncoder;
 
 	public User loadUserById(Long userId) {
@@ -54,7 +54,6 @@ public class UserService {
 		return userRepository.findAll(buildSpecByQuery(userQuery), pageable);
 	}
 
-	@Transactional(rollbackFor = Exception.class)
 	public void addUser(UserParam userParam) {
 		Optional<User> optionalUser = userRepository.findByUsername(userParam.getUsername());
 		if (optionalUser.isPresent()) {
@@ -70,18 +69,10 @@ public class UserService {
 			String encodePassword = passwordEncoder.encode(userParam.getPassword());
 			user.setPassword(encodePassword);
 		}
-		userRepository.save(user);
-
-		List<UserRole> userRoles = userParam.getRoleIds().stream().map(roleId -> {
-			UserRole userRole = new UserRole();
-			userRole.setUserId(user.getId());
-			userRole.setRoleId(roleId);
-			return userRole;
-		}).collect(Collectors.toList());
-		userRoleService.saveOrUpdate(userRoles);
+		// 更新用户和角色信息
+		userRoleManager.updateUserRole(user, userParam.getRoleIds());
 	}
 
-	@Transactional(rollbackFor = Exception.class)
 	public void updateUser(UserParam userParam) {
 		User user = this.loadUserById(userParam.getUserId());
 		user.setNickname(userParam.getNickname());
@@ -90,10 +81,8 @@ public class UserService {
 			String encodePassword = passwordEncoder.encode(userParam.getPassword());
 			user.setPassword(encodePassword);
 		}
-		// 更新用户信息
-		userRepository.save(user);
-		// 更新用户角色信息
-		userRoleService.bindRoleWithUser(user.getId(), userParam.getRoleIds());
+		// 更新用户和角色信息
+		userRoleManager.updateUserRole(user, userParam.getRoleIds());
 	}
 
 	public void deleteUser(Long id) {

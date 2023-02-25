@@ -1,5 +1,6 @@
 package net.koodar.suite.admin.module.system.role.service;
 
+import lombok.RequiredArgsConstructor;
 import net.koodar.suite.admin.module.system.role.repository.UserRoleRepository;
 import org.springframework.stereotype.Service;
 import net.koodar.suite.admin.module.system.role.domain.UserRole;
@@ -14,13 +15,10 @@ import java.util.stream.Collectors;
  * @author liyc
  */
 @Service
+@RequiredArgsConstructor
 public class UserRoleService {
 
 	private final UserRoleRepository userRoleRepository;
-
-	public UserRoleService(UserRoleRepository userRoleRepository) {
-		this.userRoleRepository = userRoleRepository;
-	}
 
 
 	public List<UserRole> findAllByUserIds(Collection<Long> userIds) {
@@ -40,12 +38,12 @@ public class UserRoleService {
 		List<Long> userRoleIds = userRoles.stream()
 				.map(UserRole::getRoleId)
 				.filter(roleId -> extraRoles.stream().noneMatch(extraRole -> extraRole.getRoleId().equals(roleId)))
-				.collect(Collectors.toList());
+				.toList();
 
 		// 新增角色
 		List<Long> missingRoles = roleIds.stream()
 				.filter(roleId -> !userRoleIds.contains(roleId))
-				.collect(Collectors.toList());
+				.toList();
 
 		// 组装UserRole
 		List<UserRole> saveRoles = missingRoles.stream().map(roleId -> {

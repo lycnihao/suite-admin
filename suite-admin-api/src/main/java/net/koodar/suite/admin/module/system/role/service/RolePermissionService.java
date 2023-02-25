@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Role permission service impl.
+ * Role permission service.
  *
  * @author liyc
  */

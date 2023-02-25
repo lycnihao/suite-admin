@@ -1,12 +1,15 @@
 package net.koodar.suite.admin.module.system.role.service;
 
+import lombok.RequiredArgsConstructor;
 import net.koodar.suite.admin.exception.ServiceException;
+import net.koodar.suite.admin.module.system.role.manager.RolePermissionManager;
 import net.koodar.suite.admin.module.system.role.repository.RoleRepository;
 import net.koodar.suite.admin.module.system.role.repository.UserRoleRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import net.koodar.suite.admin.module.system.role.domain.Role;
@@ -19,26 +22,22 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Role Service Impl.
+ * Role Service.
  *
  * @author liyc
  */
 @Service
+@RequiredArgsConstructor
 public class RoleService {
 
 	private final RoleRepository roleRepository;
 	private final UserRoleRepository userRoleRepository;
 	private final RolePermissionService rolePermissionService;
-
-	public RoleService(RoleRepository roleRepository, UserRoleRepository userRoleRepository, RolePermissionService rolePermissionService) {
-		this.roleRepository = roleRepository;
-		this.userRoleRepository = userRoleRepository;
-		this.rolePermissionService = rolePermissionService;
-	}
+	private final RolePermissionManager rolePermissionManager;
 
 	public Role findById(Long id) {
 		Optional<Role> optionalRole = roleRepository.findById(id);
-		if (!optionalRole.isPresent()) {
+		if (optionalRole.isEmpty()) {
 			throw new ServiceException("Not found by id");
 		}
 		return optionalRole.get();
@@ -72,10 +71,8 @@ public class RoleService {
 		role.setName(roleParam.getName());
 		role.setCode(roleParam.getCode());
 		role.setDescription(roleParam.getDescription());
-		// 保存角色
-		roleRepository.save(role);
-		// 更新角色权限信息
-		rolePermissionService.bindRoleWithUser(role.getId(), roleParam.getPermissions());
+		// 保存角色和权限信息
+		rolePermissionManager.updateRolePermissions(role, roleParam.getPermissions());
 	}
 
 	public void updateRole(RoleParam roleParam) {
@@ -91,12 +88,11 @@ public class RoleService {
 		role.setName(roleParam.getName());
 		role.setCode(roleParam.getCode());
 		role.setDescription(roleParam.getDescription());
-		// 保存角色
-		roleRepository.save(role);
-		// 更新角色权限信息
-		rolePermissionService.bindRoleWithUser(role.getId(), roleParam.getPermissions());
+		// 保存角色和权限信息
+		rolePermissionManager.updateRolePermissions(role, roleParam.getPermissions());
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteRole(Long id) {
 		roleRepository.deleteById(id);
 		rolePermissionService.deleteByRoleId(id);

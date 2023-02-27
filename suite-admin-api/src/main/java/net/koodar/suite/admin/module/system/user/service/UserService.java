@@ -1,7 +1,7 @@
 package net.koodar.suite.admin.module.system.user.service;
 
 import lombok.RequiredArgsConstructor;
-import net.koodar.suite.admin.exception.ServiceException;
+import net.koodar.suite.admin.common.exception.ServiceException;
 import net.koodar.suite.admin.module.system.user.manager.UserRoleManager;
 import net.koodar.suite.admin.module.system.user.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -11,11 +11,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import net.koodar.suite.admin.module.system.user.domain.User;
-import net.koodar.suite.admin.module.system.role.domain.UserRole;
 import net.koodar.suite.admin.module.system.user.domain.UserParam;
 import net.koodar.suite.admin.module.system.user.domain.UserQuery;
 
@@ -23,7 +21,6 @@ import jakarta.persistence.criteria.Predicate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * User Service.

@@ -1,7 +1,7 @@
 package net.koodar.suite.admin.module.system.permission.service;
 import java.util.*;
 
-import net.koodar.suite.admin.exception.ServiceException;
+import net.koodar.suite.admin.common.exception.ServiceException;
 import net.koodar.suite.admin.module.system.permission.repository.PermissionRepository;
 import net.koodar.suite.admin.module.system.role.repository.RolePermissionRepository;
 import org.springframework.stereotype.Service;

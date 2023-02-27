@@ -10,10 +10,10 @@
     <packaging>pom</packaging>
 
     <properties>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
-        <bottleadmin.springboot.version>3.0.2</bottleadmin.springboot.version>
+        <suiteadmin.springboot.version>3.0.2</suiteadmin.springboot.version>
         <springdoc-openapi.version>2.0.2</springdoc-openapi.version>
         <apache.commons-lang3.version>3.12.0</apache.commons-lang3.version>
     </properties>
@@ -32,7 +32,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${bottleadmin.springboot.version}</version>
+                <version>${suiteadmin.springboot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -54,22 +54,13 @@
     </dependencyManagement>
 
     <modules>
+        <module>suite-admin-api</module>
+        <module>suite-admin-common</module>
     </modules>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
 </project>

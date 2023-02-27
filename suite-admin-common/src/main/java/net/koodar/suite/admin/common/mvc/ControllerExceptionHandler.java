@@ -1,11 +1,11 @@
 package net.koodar.suite.admin.common.mvc;
 
-import io.jsonwebtoken.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
-import net.koodar.suite.admin.exception.ServiceException;
 import net.koodar.suite.admin.common.BaseResponse;
+import net.koodar.suite.admin.common.exception.ServiceException;
 import net.koodar.suite.admin.common.util.ExceptionUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

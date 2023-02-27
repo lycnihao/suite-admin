@@ -1,5 +1,7 @@
 package net.koodar.suite.admin.module.system.permission.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import net.koodar.suite.admin.module.system.permission.domain.Permission;
 import net.koodar.suite.admin.module.system.permission.domain.PermissionParam;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
  *
  * @author liyc
  */
+@Tag(name = "系统管理-权限")
 @RestController
 public class PermissionController {
 
@@ -27,6 +30,7 @@ public class PermissionController {
 		this.permissionAssembler = permissionAssembler;
 	}
 
+	@Operation(summary = "获取所有权限")
 	@GetMapping("/permission/getAllPermissions")
 	public BaseResponse<List<PermissionVo>> listAllPermission() {
 		List<Permission> permissions = permissionService.getPermissions();
@@ -40,6 +44,7 @@ public class PermissionController {
 	 * @param permissionParam Param
 	 * @return Add result
 	 */
+	@Operation(summary = "添加权限")
 	@PostMapping("/permission/add")
 	public BaseResponse<String> addPermission(@RequestBody PermissionParam permissionParam) {
 		permissionService.savePermission(permissionParam);
@@ -52,6 +57,7 @@ public class PermissionController {
 	 * @param permissionParam Param
 	 * @return Update result
 	 */
+	@Operation(summary = "更新权限")
 	@PostMapping("/permission/update")
 	public BaseResponse<String> updatePermission(@RequestBody PermissionParam permissionParam) {
 		permissionService.savePermission(permissionParam);
@@ -64,6 +70,7 @@ public class PermissionController {
 	 * @param permissionId permission id
 	 * @return Update result
 	 */
+	@Operation(summary = "删除权限")
 	@PostMapping("/permission/delete")
 	public BaseResponse<String> deletedPermission(@RequestParam Long permissionId) {
 		permissionService.deletePermission(permissionId);

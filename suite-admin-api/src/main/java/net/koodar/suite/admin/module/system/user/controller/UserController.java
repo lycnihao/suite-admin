@@ -1,5 +1,6 @@
 package net.koodar.suite.admin.module.system.user.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.admin.module.system.user.domain.*;
 import net.koodar.suite.admin.module.system.user.service.UserService;
@@ -27,6 +28,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  *
  * @author liyc
  */
+@Tag(name = "系统管理-用户")
 @Slf4j
 @RestController
 public class UserController {

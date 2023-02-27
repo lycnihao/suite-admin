@@ -14,7 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <bottleadmin.springboot.version>3.0.2</bottleadmin.springboot.version>
-        <swagger.version>3.0.0</swagger.version>
+        <springdoc-openapi.version>2.0.2</springdoc-openapi.version>
         <apache.commons-lang3.version>3.12.0</apache.commons-lang3.version>
     </properties>
 
@@ -38,13 +38,12 @@
             </dependency>
             <!--BOM end-->
 
-            <!-- swagger -->
+            <!-- springdoc-openapi -->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.version}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc-openapi.version}</version>
             </dependency>
-
             <!-- apache commons-lang3 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>

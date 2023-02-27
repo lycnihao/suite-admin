@@ -58,6 +58,8 @@ public class SecurityConfiguration {
 						authorize.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests((authorize) -> authorize
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+						// springdoc-openapi
+						.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 						.requestMatchers( "/error").permitAll()
 						// 动态权限认证（默认都需要登录）
 						.anyRequest().access(permissionAuthorizationManager))

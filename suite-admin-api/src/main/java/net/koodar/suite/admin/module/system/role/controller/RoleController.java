@@ -1,5 +1,7 @@
 package net.koodar.suite.admin.module.system.role.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -23,6 +25,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  *
  * @author liyc
  */
+@Tag(name = "系统管理-角色")
 @RestController
 public class RoleController {
 
@@ -38,6 +41,7 @@ public class RoleController {
 	 * Get all roles
 	 * @return roles
 	 */
+	@Operation(summary = "获取所有角色列表")
 	@GetMapping("/role/getAllRoles")
 	public BaseResponse<List<Role>> getRoles() {
 		return BaseResponse.ok(roleService.findAllRoles());
@@ -49,6 +53,7 @@ public class RoleController {
 	 * @param roleQuery Search param
 	 * @return A list of role
 	 */
+	@Operation(summary = "查询角色列表")
 	@GetMapping("/role/list")
 	public Page<Role> getUserList(
 			@PageableDefault(sort = {"createTime"}, direction = DESC) Pageable pageable,
@@ -56,6 +61,7 @@ public class RoleController {
 		return roleService.pageBy(roleQuery, pageable);
 	}
 
+	@Operation(summary = "获取角色信息")
 	@GetMapping("/role/info")
 	public BaseResponse<RoleVo> getRoleInfo(@RequestParam Long id) {
 		RoleVo roleVo = new RoleVo();
@@ -76,6 +82,7 @@ public class RoleController {
 	 * @param roleParam Param
 	 * @return Add result
 	 */
+	@Operation(summary = "添加角色")
 	@PostMapping("/role/add")
 	public BaseResponse<String> addRole(@RequestBody RoleParam roleParam) {
 		roleService.addRole(roleParam);
@@ -88,6 +95,7 @@ public class RoleController {
 	 * @param roleParam Param
 	 * @return Update result
 	 */
+	@Operation(summary = "更新角色")
 	@PostMapping("/role/update")
 	public BaseResponse<String> updateRole(@RequestBody RoleParam roleParam) {
 		roleService.updateRole(roleParam);
@@ -100,6 +108,7 @@ public class RoleController {
 	 * @param roleId Role id
 	 * @return Delete result
 	 */
+	@Operation(summary = "删除角色")
 	@PostMapping("/role/delete")
 	public BaseResponse<String> deleteRole(@RequestParam Long roleId) {
 		roleService.deleteRole(roleId);

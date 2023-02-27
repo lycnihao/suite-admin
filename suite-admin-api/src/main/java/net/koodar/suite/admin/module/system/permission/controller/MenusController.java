@@ -1,5 +1,7 @@
 package net.koodar.suite.admin.module.system.permission.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.koodar.suite.admin.security.authentication.AppUserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +16,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * Menus controller.
+ *
  * @author liyc
  */
+@Tag(name = "系统管理-菜单")
 @RestController
 public class MenusController {
 
@@ -32,6 +37,7 @@ public class MenusController {
 	 * @return 菜单
 	 */
 	@GetMapping("/menus")
+	@Operation(summary = "获取当前用户菜单列表")
 	public BaseResponse<Collection<MenuVo>> getMenus() {
 		AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Permission> permissions = permissionService.getMenusByRoleIds(userDetails.getRoleIds());

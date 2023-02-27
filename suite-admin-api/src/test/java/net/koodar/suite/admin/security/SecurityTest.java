@@ -9,7 +9,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import net.koodar.suite.admin.common.util.JsonUtils;
+import net.koodar.suite.common.util.JsonUtils;
 
 import java.util.Map;
 

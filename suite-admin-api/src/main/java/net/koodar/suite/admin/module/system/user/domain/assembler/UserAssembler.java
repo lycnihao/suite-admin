@@ -1,6 +1,6 @@
 package net.koodar.suite.admin.module.system.user.domain.assembler;
 
-import net.koodar.suite.admin.common.exception.ServiceException;
+import net.koodar.suite.common.exception.ServiceException;
 import net.koodar.suite.admin.module.system.role.service.RoleService;
 import net.koodar.suite.admin.module.system.role.service.UserRoleService;
 import net.koodar.suite.admin.module.system.user.service.UserService;

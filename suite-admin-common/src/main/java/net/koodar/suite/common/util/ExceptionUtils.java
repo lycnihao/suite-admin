@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.common.util;
+package net.koodar.suite.common.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

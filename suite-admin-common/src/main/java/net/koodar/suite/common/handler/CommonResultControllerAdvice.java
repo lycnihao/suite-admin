@@ -1,6 +1,6 @@
-package net.koodar.suite.admin.common.mvc;
+package net.koodar.suite.common.handler;
 
-import net.koodar.suite.admin.common.BaseResponse;
+import net.koodar.suite.common.BaseResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  *
  * @author liyc
  */
-@ControllerAdvice("net.koodar.suite.admin.controller")
+@ControllerAdvice("net.koodar.suite.admin")
 public class CommonResultControllerAdvice implements ResponseBodyAdvice<Object> {
 
 	@Override

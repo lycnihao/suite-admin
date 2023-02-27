@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import net.koodar.suite.admin.module.system.permission.domain.Permission;
-import net.koodar.suite.admin.common.BaseResponse;
+import net.koodar.suite.common.BaseResponse;
 import net.koodar.suite.admin.module.system.permission.domain.PermissionMetaVo;
 import net.koodar.suite.admin.module.system.permission.domain.MenuVo;
 import net.koodar.suite.admin.module.system.permission.service.PermissionService;

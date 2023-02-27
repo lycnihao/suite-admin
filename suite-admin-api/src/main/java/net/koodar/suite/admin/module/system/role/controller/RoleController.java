@@ -10,7 +10,7 @@ import net.koodar.suite.admin.module.system.permission.domain.Permission;
 import net.koodar.suite.admin.module.system.role.domain.Role;
 import net.koodar.suite.admin.module.system.role.domain.RoleParam;
 import net.koodar.suite.admin.module.system.role.domain.RoleQuery;
-import net.koodar.suite.admin.common.BaseResponse;
+import net.koodar.suite.common.BaseResponse;
 import net.koodar.suite.admin.module.system.role.domain.RoleVo;
 import net.koodar.suite.admin.module.system.permission.service.PermissionService;
 import net.koodar.suite.admin.module.system.role.service.RoleService;

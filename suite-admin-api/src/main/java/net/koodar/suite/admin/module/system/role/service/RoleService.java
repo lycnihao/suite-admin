@@ -1,7 +1,7 @@
 package net.koodar.suite.admin.module.system.role.service;
 
 import lombok.RequiredArgsConstructor;
-import net.koodar.suite.admin.common.exception.ServiceException;
+import net.koodar.suite.common.exception.ServiceException;
 import net.koodar.suite.admin.module.system.role.manager.RolePermissionManager;
 import net.koodar.suite.admin.module.system.role.repository.RoleRepository;
 import net.koodar.suite.admin.module.system.role.repository.UserRoleRepository;

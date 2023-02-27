@@ -1,7 +1,7 @@
 package net.koodar.suite.admin.module.system.user.service;
 
 import lombok.RequiredArgsConstructor;
-import net.koodar.suite.admin.common.exception.ServiceException;
+import net.koodar.suite.common.exception.ServiceException;
 import net.koodar.suite.admin.module.system.user.manager.UserRoleManager;
 import net.koodar.suite.admin.module.system.user.repository.UserRepository;
 import org.springframework.data.domain.Page;

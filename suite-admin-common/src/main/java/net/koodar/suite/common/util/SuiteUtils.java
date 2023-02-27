@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.common.util;
+package net.koodar.suite.common.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;

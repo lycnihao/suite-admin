@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import net.koodar.suite.admin.module.system.permission.domain.Permission;
 import net.koodar.suite.admin.module.system.permission.domain.PermissionParam;
-import net.koodar.suite.admin.common.BaseResponse;
+import net.koodar.suite.common.BaseResponse;
 import net.koodar.suite.admin.module.system.permission.domain.PermissionVo;
 import net.koodar.suite.admin.module.system.permission.service.PermissionService;
 import net.koodar.suite.admin.module.system.permission.domain.assembler.PermissionAssembler;

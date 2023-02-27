@@ -25,8 +25,8 @@ springdoc:
   api-docs:
     enabled: true
 
-logging:
-  level:
-    org.springframework.web: debug
-    org.springframework.security: debug
-    org.springframework.security.oauth2: debug
+#logging:
+#  level:
+#    org.springframework.web: debug
+#    org.springframework.security: debug
+#    org.springframework.security.oauth2: debug

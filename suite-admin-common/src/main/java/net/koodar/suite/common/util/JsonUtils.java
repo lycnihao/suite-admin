@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.common.util;
+package net.koodar.suite.common.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

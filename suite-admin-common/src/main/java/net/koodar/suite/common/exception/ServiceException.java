@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.common.exception;
+package net.koodar.suite.common.exception;
 
 import org.springframework.http.HttpStatus;
 

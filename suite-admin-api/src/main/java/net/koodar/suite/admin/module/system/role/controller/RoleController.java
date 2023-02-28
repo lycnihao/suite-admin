@@ -38,8 +38,8 @@ public class RoleController {
 	}
 
 	/**
-	 * Get all roles
-	 * @return roles
+	 * 获取所有角色列表
+	 * @return 角色列表
 	 */
 	@Operation(summary = "获取所有角色列表")
 	@GetMapping("/role/getAllRoles")
@@ -48,10 +48,10 @@ public class RoleController {
 	}
 
 	/**
-	 * Find roles by param
-	 * @param pageable Pagination param
-	 * @param roleQuery Search param
-	 * @return A list of role
+	 * 查询角色列表
+	 * @param pageable 分页参数
+	 * @param roleQuery 查询条件
+	 * @return 角色列表
 	 */
 	@Operation(summary = "查询角色列表")
 	@GetMapping("/role/list")
@@ -61,6 +61,11 @@ public class RoleController {
 		return roleService.pageBy(roleQuery, pageable);
 	}
 
+	/**
+	 * 获取角色信息
+	 * @param id 角色id
+	 * @return 角色信息
+	 */
 	@Operation(summary = "获取角色信息")
 	@GetMapping("/role/info")
 	public BaseResponse<RoleVo> getRoleInfo(@RequestParam Long id) {
@@ -77,10 +82,10 @@ public class RoleController {
 	}
 
 	/**
-	 * Add a role
+	 * 添加角色
 	 *
-	 * @param roleParam Param
-	 * @return Add result
+	 * @param roleParam 角色参数
+	 * @return 操作结果
 	 */
 	@Operation(summary = "添加角色")
 	@PostMapping("/role/add")
@@ -90,10 +95,10 @@ public class RoleController {
 	}
 
 	/**
-	 * Update a role
+	 * 更新角色
 	 *
-	 * @param roleParam Param
-	 * @return Update result
+	 * @param roleParam 角色参数
+	 * @return 操作结果
 	 */
 	@Operation(summary = "更新角色")
 	@PostMapping("/role/update")
@@ -103,10 +108,10 @@ public class RoleController {
 	}
 
 	/**
-	 * Delete a role
+	 * 删除角色
 	 *
-	 * @param roleId Role id
-	 * @return Delete result
+	 * @param roleId 角色Id
+	 * @return 操作结果
 	 */
 	@Operation(summary = "删除角色")
 	@PostMapping("/role/delete")

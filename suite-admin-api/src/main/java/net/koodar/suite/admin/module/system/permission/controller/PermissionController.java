@@ -39,10 +39,10 @@ public class PermissionController {
 	}
 
 	/**
-	 * Add a permission
+	 * 添加权限
 	 *
-	 * @param permissionParam Param
-	 * @return Add result
+	 * @param permissionParam 权限参数
+	 * @return 操作结果
 	 */
 	@Operation(summary = "添加权限")
 	@PostMapping("/permission/add")
@@ -52,10 +52,10 @@ public class PermissionController {
 	}
 
 	/**
-	 * Update a permission
+	 * 更新权限
 	 *
-	 * @param permissionParam Param
-	 * @return Update result
+	 * @param permissionParam 权限参数
+	 * @return 操作结果
 	 */
 	@Operation(summary = "更新权限")
 	@PostMapping("/permission/update")
@@ -65,10 +65,10 @@ public class PermissionController {
 	}
 
 	/**
-	 * Delete a permission
+	 * 删除权限
 	 *
-	 * @param permissionId permission id
-	 * @return Update result
+	 * @param permissionId 权限Id
+	 * @return 操作结果
 	 */
 	@Operation(summary = "删除权限")
 	@PostMapping("/permission/delete")

@@ -1,5 +1,6 @@
 package net.koodar.suite.admin.module.system.user.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.admin.module.system.user.domain.*;
@@ -48,10 +49,11 @@ public class UserController {
 	}
 
 	/**
-	 * Get user info of login user
+	 * 获取登录用户的用户信息
 	 *
-	 * @return User info
+	 * @return 用户信息
 	 */
+	@Operation(summary = "获取登录用户的用户信息")
 	@GetMapping("/user/info")
 	public BaseResponse<UserVo> getUserInfo() {
 		AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -68,11 +70,12 @@ public class UserController {
 	}
 
 	/**
-	 * Get user info by userId
+	 * 通过userId获取用户信息
 	 *
-	 * @param userId User id
-	 * @return User info
+	 * @param userId 用户id
+	 * @return 用户信息
 	 */
+	@Operation(summary = "通过userId获取用户信息")
 	@GetMapping(value="/user/info", params={"userId"})
 	public BaseResponse<UserVo> getUserInfoById(@RequestParam Long userId) {
 		User user = userService.loadUserById(userId);
@@ -84,12 +87,13 @@ public class UserController {
 	}
 
 	/**
-	 * Get list of user
+	 * 获取用户列表
 	 *
-	 * @param pageable Pagination param
-	 * @param userQuery Search param
-	 * @return A list of user
+	 * @param pageable 分页参数
+	 * @param userQuery 查询条件
+	 * @return 用户列表
 	 */
+	@Operation(summary = "获取用户列表")
 	@GetMapping("/user/list")
 	public Page<UserListVo> getUserList(
 			@PageableDefault(sort = {"createTime"}, direction = DESC) Pageable pageable,
@@ -98,11 +102,12 @@ public class UserController {
 	}
 
 	/**
-	 * Add a user
+	 * 添加用户
 	 *
-	 * @param userParam Param
-	 * @return Add result
+	 * @param userParam 用户参数
+	 * @return 操作结果
 	 */
+	@Operation(summary = "添加用户")
 	@PostMapping("/user/add")
 	public BaseResponse<String> addUser(@RequestBody UserParam userParam) {
 		userService.addUser(userParam);
@@ -110,11 +115,12 @@ public class UserController {
 	}
 
 	/**
-	 * Update a user
+	 * 更新用户
 	 *
-	 * @param userParam Param
-	 * @return Update result
+	 * @param userParam 用户参数
+	 * @return 操作结果
 	 */
+	@Operation(summary = "更新用户")
 	@PostMapping("/user/update")
 	public BaseResponse<String> updateUser(@RequestBody UserParam userParam) {
 		userService.updateUser(userParam);
@@ -122,11 +128,12 @@ public class UserController {
 	}
 
 	/**
-	 * Delete a user
+	 * 删除用户
 	 *
-	 * @param userId user id
-	 * @return Update result
+	 * @param userId 用户Id
+	 * @return 操作结果
 	 */
+	@Operation(summary = "删除用户")
 	@PostMapping("/user/delete")
 	public BaseResponse<String> deletedUser(@RequestParam Long userId) {
 		userService.deleteUser(userId);
@@ -137,8 +144,9 @@ public class UserController {
 	 * 修改当前用户密码
 	 * @param oldPassword 原密码
 	 * @param newPassword 新密码
-	 * @return BaseResponse
+	 * @return 操作结果
 	 */
+	@Operation(summary = "修改当前用户密码")
 	@PostMapping("/user/updatePassword")
 	public BaseResponse<String> updatePassword(@RequestParam String oldPassword,
 											   @RequestParam String newPassword) {

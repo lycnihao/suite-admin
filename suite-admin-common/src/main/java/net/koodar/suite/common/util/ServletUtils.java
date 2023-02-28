@@ -4,12 +4,34 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Enumeration;
+
 /**
  * Servlet Util.
  *
  * @author liyc
  */
 public class ServletUtils {
+	/**
+	 * 忽略大小写获得请求header中的信息
+	 *
+	 * @param request        请求对象{@link HttpServletRequest}
+	 * @param nameIgnoreCase 忽略大小写头信息的KEY
+     * @see <a href="https://github.com/dromara/hutool/blob/v5-master/hutool-extra/src/main/java/cn/hutool/extra/servlet/ServletUtil.java">查看来源</a>
+	 * @return header值
+	 */
+	public static String getHeaderIgnoreCase(HttpServletRequest request, String nameIgnoreCase) {
+		final Enumeration<String> names = request.getHeaderNames();
+		String name;
+		while (names.hasMoreElements()) {
+			name = names.nextElement();
+			if (name != null && name.equalsIgnoreCase(nameIgnoreCase)) {
+				return request.getHeader(name);
+			}
+		}
+
+		return null;
+	}
 
 	/**
 	 * 获取客户端IP.

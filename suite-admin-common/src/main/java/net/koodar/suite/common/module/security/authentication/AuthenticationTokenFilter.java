@@ -60,13 +60,13 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 		// Get jwt token
 		jwt = authHeader.substring(AUTHENTICATION_SCHEME.length());
 
-		try {
-			userEmail = jwtService.extractUsername(jwt);
-		} catch (ExpiredJwtException e) {
+		if (!jwtService.isTokenExpired(jwt)) {
 			this.securityContextHolderStrategy.clearContext();
 			this.failureHandler.onAuthenticationFailure(request, response, new AccountExpiredException("token过期请重新登录"));
 			return;
 		}
+
+		userEmail = jwtService.extractUsername(jwt);
 
 		if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = appUserDetailsService.loadUserByUsername(userEmail);

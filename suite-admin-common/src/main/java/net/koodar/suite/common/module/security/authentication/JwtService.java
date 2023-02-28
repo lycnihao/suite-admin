@@ -1,6 +1,7 @@
 package net.koodar.suite.common.module.security.authentication;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -57,7 +58,11 @@ public class JwtService {
 	}
 
 	public boolean isTokenExpired(String token) {
-		return extractExpiration(token).before(new Date());
+		try {
+			return extractExpiration(token).before(new Date());
+		} catch (ExpiredJwtException e) {
+			return false;
+		}
 	}
 
 	private Date extractExpiration(String token) {

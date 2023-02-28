@@ -38,6 +38,11 @@ public class RolePermissionService {
 		rolePermissionRepository.saveAll(rolePermissionList);
 	}
 
+	public List<RolePermission> findByPermissionIdIn(Collection<Long> permissionIds) {
+		return rolePermissionRepository.findByPermissionIdIn(permissionIds);
+	}
+
+
 	public void bindRoleWithUser(Long roleId, Collection<String> permissionNames) {
 
 		// 需要绑定的所有权限

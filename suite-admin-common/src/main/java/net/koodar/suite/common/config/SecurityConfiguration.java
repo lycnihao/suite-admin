@@ -36,7 +36,7 @@ public class SecurityConfiguration {
 	private final JwtService jwtService;
 	private final AppUserDetailsService userDetailsService;
 	private final AuthenticationTokenFilter authenticationTokenFilter;
-	private final AuthorizationManager<RequestAuthorizationContext> permissionAuthorizationManager;
+	private final AuthorizationManager<RequestAuthorizationContext> dynamicAuthorizationManager;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -62,7 +62,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 						.requestMatchers( "/error").permitAll()
 						// 动态权限认证（默认都需要登录）
-						.anyRequest().access(permissionAuthorizationManager))
+						.anyRequest().access(dynamicAuthorizationManager))
 				.formLogin((authorize) -> authorize.permitAll()
 						.successHandler(new CustomizeAuthenticationSuccessHandler(jwtService))
 						.failureHandler(new AuthenticationEntryPointFailureHandler(new CustomizeAuthenticationEntryPoint())))

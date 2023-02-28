@@ -1,7 +1,8 @@
-package net.koodar.suite.admin.security;
+package net.koodar.suite.common.module.security.authorization;
 
+import cn.hutool.core.lang.Pair;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.koodar.suite.common.module.security.authentication.AppUserDetails;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -10,13 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-import net.koodar.suite.admin.module.system.permission.domain.Permission;
-import net.koodar.suite.admin.module.system.permission.domain.PermissionTypeEnum;
-import net.koodar.suite.admin.module.system.permission.service.PermissionService;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -28,15 +24,12 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component
-public class PermissionAuthorizationManager<T> implements AuthorizationManager<T> {
+@RequiredArgsConstructor
+public class DynamicAuthorizationManager<T> implements AuthorizationManager<T> {
 
 	private final AuthenticationTrustResolver trustResolver = new AuthenticationTrustResolverImpl();
 
-	private final PermissionService permissionService;
-
-	public PermissionAuthorizationManager(PermissionService permissionService) {
-		this.permissionService = permissionService;
-	}
+	private final DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
 
 	@Override
 	public AuthorizationDecision check(Supplier<Authentication> authentication, T object) {
@@ -58,15 +51,15 @@ public class PermissionAuthorizationManager<T> implements AuthorizationManager<T
 		String servletPath = requestAuthorizationContext.getRequest().getRequestURI();
 		log.debug("access url:{}", servletPath);
 
-		AppUserDetails userDetails = (AppUserDetails)authentication.get().getPrincipal();
-		List<Permission> permissionAllLis = permissionService.getPermissionsByType(PermissionTypeEnum.PERMISSIONS);
-		if (permissionAllLis.stream().anyMatch(permission -> StringUtils.hasLength(permission.getPath()) &&
-						permission.getPath().equals(servletPath))) {
-			List<Permission> permissions = permissionService.listByRoleIds(userDetails.getRoleIds());
-			boolean agreeFlag = permissions.stream()
-					.anyMatch(permission -> isUrlPermission(permission) && permission.getPath().equals(servletPath));
-			log.debug("check result:{}", agreeFlag);
-			return new AuthorizationDecision(agreeFlag);
+		if (dynamicSecurityMetadataSource.checkPermissionUrl(servletPath)) {
+			Collection<Pair<String, String>> configAttributes = dynamicSecurityMetadataSource.getAttributes(requestAuthorizationContext);
+			for (Pair<String, String> configAttribute : configAttributes) {
+				//将访问所需资源或用户拥有资源进行比对
+				String needAuthority = configAttribute.getValue();
+				if (!authority.contains(needAuthority)) {
+					return new AuthorizationDecision(false);
+				}
+			}
 		}
 		return new AuthorizationDecision(true);
 	}
@@ -77,10 +70,6 @@ public class PermissionAuthorizationManager<T> implements AuthorizationManager<T
 
 	private boolean isNotAnonymous(Authentication authentication) {
 		return !this.trustResolver.isAnonymous(authentication);
-	}
-
-	private boolean isUrlPermission(Permission permission) {
-		return permission.getType() == PermissionTypeEnum.PERMISSIONS.getValue();
 	}
 
 }

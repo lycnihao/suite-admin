@@ -1,19 +1,19 @@
-package net.koodar.suite.admin.config;
+package net.koodar.suite.common.config;
 
 import lombok.RequiredArgsConstructor;
-import net.koodar.suite.admin.security.authentication.CustomizeAuthenticationSuccessHandler;
-import net.koodar.suite.admin.security.authentication.CustomizeLogoutSuccessHandler;
-import net.koodar.suite.admin.security.authorization.PermissionAuthorizationManager;
-import net.koodar.suite.admin.security.authentication.AuthenticationTokenFilter;
-import net.koodar.suite.admin.security.authorization.CustomizeAccessDeniedHandler;
-import net.koodar.suite.admin.security.authorization.CustomizeAuthenticationEntryPoint;
-import net.koodar.suite.admin.security.authentication.service.AppUserDetailsService;
-import net.koodar.suite.admin.security.authentication.JwtService;
+import net.koodar.suite.common.module.security.authentication.CustomizeAuthenticationSuccessHandler;
+import net.koodar.suite.common.module.security.authentication.CustomizeLogoutSuccessHandler;
+import net.koodar.suite.common.module.security.authentication.AuthenticationTokenFilter;
+import net.koodar.suite.common.module.security.authorization.CustomizeAccessDeniedHandler;
+import net.koodar.suite.common.module.security.authorization.CustomizeAuthenticationEntryPoint;
+import net.koodar.suite.common.module.security.authentication.service.AppUserDetailsService;
+import net.koodar.suite.common.module.security.authentication.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,7 +36,7 @@ public class SecurityConfiguration {
 	private final JwtService jwtService;
 	private final AppUserDetailsService userDetailsService;
 	private final AuthenticationTokenFilter authenticationTokenFilter;
-	private final PermissionAuthorizationManager<RequestAuthorizationContext> permissionAuthorizationManager;
+	private final AuthorizationManager<RequestAuthorizationContext> permissionAuthorizationManager;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {

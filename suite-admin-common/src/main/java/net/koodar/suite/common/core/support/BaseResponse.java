@@ -1,4 +1,4 @@
-package net.koodar.suite.common;
+package net.koodar.suite.common.core.support;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;

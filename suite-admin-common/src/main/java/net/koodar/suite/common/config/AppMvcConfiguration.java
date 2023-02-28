@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.config;
+package net.koodar.suite.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;

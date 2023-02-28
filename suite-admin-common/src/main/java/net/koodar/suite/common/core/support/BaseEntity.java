@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.common;
+package net.koodar.suite.common.core.support;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

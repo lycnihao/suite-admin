@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.security.authentication;
+package net.koodar.suite.common.module.security.authentication;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

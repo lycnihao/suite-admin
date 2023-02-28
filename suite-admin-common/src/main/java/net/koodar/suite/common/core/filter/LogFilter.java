@@ -1,4 +1,4 @@
-package net.koodar.suite.common.filter;
+package net.koodar.suite.common.core.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

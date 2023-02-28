@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.security.authentication.service;
+package net.koodar.suite.common.module.security.authentication.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,6 +1,6 @@
-package net.koodar.suite.common.handler;
+package net.koodar.suite.common.core.handler;
 
-import net.koodar.suite.common.BaseResponse;
+import net.koodar.suite.common.core.support.BaseResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -4,7 +4,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.admin.module.system.user.domain.*;
 import net.koodar.suite.admin.module.system.user.service.UserService;
-import net.koodar.suite.admin.security.authentication.AppUserDetails;
+import net.koodar.suite.common.module.security.authentication.AppUserDetails;
+import net.koodar.suite.common.module.operatelog.annoation.OperateLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -12,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import net.koodar.suite.admin.module.system.permission.domain.Permission;
 import net.koodar.suite.admin.module.system.role.domain.Role;
-import net.koodar.suite.common.BaseResponse;
+import net.koodar.suite.common.core.support.BaseResponse;
 import net.koodar.suite.admin.module.system.user.domain.PairVo;
 import net.koodar.suite.admin.module.system.permission.service.PermissionService;
 import net.koodar.suite.admin.module.system.role.service.RoleService;
@@ -28,6 +29,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  *
  * @author liyc
  */
+@OperateLog
 @Tag(name = "系统管理-用户")
 @Slf4j
 @RestController

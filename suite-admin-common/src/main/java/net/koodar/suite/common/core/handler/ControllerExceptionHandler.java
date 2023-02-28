@@ -1,8 +1,8 @@
-package net.koodar.suite.common.handler;
+package net.koodar.suite.common.core.handler;
 
 import lombok.extern.slf4j.Slf4j;
-import net.koodar.suite.common.BaseResponse;
-import net.koodar.suite.common.exception.ServiceException;
+import net.koodar.suite.common.core.support.BaseResponse;
+import net.koodar.suite.common.core.exception.ServiceException;
 import net.koodar.suite.common.util.ExceptionUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;

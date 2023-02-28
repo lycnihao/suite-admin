@@ -1,9 +1,9 @@
-package net.koodar.suite.admin.security.authentication.service.impl;
+package net.koodar.suite.admin.module.system.user.service;
 
 import net.koodar.suite.admin.module.system.role.repository.RoleRepository;
 import net.koodar.suite.admin.module.system.user.repository.UserRepository;
-import net.koodar.suite.admin.security.authentication.service.AppUserDetailsService;
-import net.koodar.suite.admin.security.authentication.AppUserDetails;
+import net.koodar.suite.common.module.security.authentication.AppUserDetails;
+import net.koodar.suite.common.module.security.authentication.service.AppUserDetailsService;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

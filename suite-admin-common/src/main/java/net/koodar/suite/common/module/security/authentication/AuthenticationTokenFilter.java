@@ -1,21 +1,17 @@
-package net.koodar.suite.admin.security.authentication;
+package net.koodar.suite.common.module.security.authentication;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.koodar.suite.admin.security.authentication.service.AppUserDetailsService;
-import net.koodar.suite.admin.security.authorization.CustomizeAuthenticationEntryPoint;
+import net.koodar.suite.common.module.security.authentication.service.AppUserDetailsService;
+import net.koodar.suite.common.module.security.authorization.CustomizeAuthenticationEntryPoint;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

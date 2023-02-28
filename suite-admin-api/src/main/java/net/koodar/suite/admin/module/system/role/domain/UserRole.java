@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import jakarta.persistence.*;
-import net.koodar.suite.admin.common.BaseEntity;
+import net.koodar.suite.common.core.support.BaseEntity;
 
 /**
  * @author liyc

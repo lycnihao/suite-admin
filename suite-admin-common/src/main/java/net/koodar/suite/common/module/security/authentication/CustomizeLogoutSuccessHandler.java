@@ -1,11 +1,11 @@
-package net.koodar.suite.admin.security.authentication;
+package net.koodar.suite.common.module.security.authentication;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.util.JsonUtils;
-import net.koodar.suite.common.BaseResponse;
+import net.koodar.suite.common.core.support.BaseResponse;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

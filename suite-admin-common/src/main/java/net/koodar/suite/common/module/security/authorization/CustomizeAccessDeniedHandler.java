@@ -1,10 +1,10 @@
-package net.koodar.suite.admin.security.authorization;
+package net.koodar.suite.common.module.security.authorization;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import net.koodar.suite.common.BaseResponse;
+import net.koodar.suite.common.core.support.BaseResponse;
 import net.koodar.suite.common.util.JsonUtils;
 
 import jakarta.servlet.ServletException;

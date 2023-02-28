@@ -1,7 +1,7 @@
-package net.koodar.suite.admin.security.authorization;
+package net.koodar.suite.admin.security;
 
 import lombok.extern.slf4j.Slf4j;
-import net.koodar.suite.admin.security.authentication.AppUserDetails;
+import net.koodar.suite.common.module.security.authentication.AppUserDetails;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authorization.AuthorizationDecision;

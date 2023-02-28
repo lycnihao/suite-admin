@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.security.authorization;
+package net.koodar.suite.common.module.security.authorization;
 
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.util.ExceptionUtils;
@@ -8,7 +8,7 @@ import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.util.Assert;
-import net.koodar.suite.common.BaseResponse;
+import net.koodar.suite.common.core.support.BaseResponse;
 import net.koodar.suite.common.util.JsonUtils;
 
 import jakarta.servlet.ServletException;

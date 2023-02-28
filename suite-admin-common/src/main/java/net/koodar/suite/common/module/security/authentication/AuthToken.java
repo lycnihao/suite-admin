@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.security.authentication;
+package net.koodar.suite.common.module.security.authentication;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

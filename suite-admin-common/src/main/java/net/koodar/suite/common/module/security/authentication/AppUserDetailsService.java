@@ -13,4 +13,6 @@ public interface AppUserDetailsService extends UserDetailsService {
 
 	UserDetails loadUserById(Long userId) throws UsernameNotFoundException;
 
+	Boolean loadUserByUsernameThenExists(String username);
+
 }

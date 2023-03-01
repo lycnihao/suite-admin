@@ -58,7 +58,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 		// Get jwt token
 		jwt = authHeader.substring(AUTHENTICATION_SCHEME.length());
 
-		if (!jwtService.isTokenExpired(jwt)) {
+		if (jwtService.isTokenExpired(jwt)) {
 			this.securityContextHolderStrategy.clearContext();
 			this.failureHandler.onAuthenticationFailure(request, response, new AccountExpiredException("token过期请重新登录"));
 			return;

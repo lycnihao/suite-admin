@@ -3,6 +3,7 @@ package net.koodar.suite.common.module.security.authorization;
 import cn.hutool.core.lang.Pair;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.koodar.suite.common.module.security.authentication.support.AppUserDetails;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -16,6 +17,8 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import static net.koodar.suite.common.module.security.SuperAdminInitializer.SUPER_ROLE_NAME;
 
 /**
  * Permission AuthorizationManager
@@ -37,6 +40,12 @@ public class DynamicAuthorizationManager<T> implements AuthorizationManager<T> {
 		boolean granted = isGranted(authentication.get());
 		if (!granted) {
 			return new AuthorizationDecision(false);
+		}
+
+		// 超级管理员
+		AppUserDetails appUserDetails = (AppUserDetails) authentication.get().getPrincipal();
+		if (appUserDetails.getAdministratorFlag()) {
+			return new AuthorizationDecision(true);
 		}
 
 		Collection<? extends GrantedAuthority> authorities = authentication.get().getAuthorities();

@@ -74,6 +74,12 @@ public class User extends BaseEntity {
 	@Column(name = "deleted_flag")
 	private Boolean deletedFlag = false;
 
+	/**
+	 * 是否为超级管理员: 0 不是，1是
+	 */
+	@Column(name = "administrator_flag")
+	private Boolean administratorFlag = false;
+
 	@Override
 	public void prePersist() {
 		super.prePersist();

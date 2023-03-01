@@ -88,6 +88,10 @@ public class UserService {
 		userRepository.save(user);
 	}
 
+	public Boolean loadUserByUsernameThenExists(String username) {
+		return userRepository.findByUsername(username).isPresent();
+	}
+
 	public void updatePassword(Long userId, String oldPassword, String newPassword) {
 		User user = this.loadUserById(userId);
 		if (!passwordEncoder.matches(oldPassword, user.getPassword())) {

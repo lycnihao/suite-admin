@@ -40,7 +40,11 @@ public class MenusController {
 	@Operation(summary = "获取当前用户菜单列表")
 	public BaseResponse<Collection<MenuVo>> getMenus() {
 		AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<Permission> permissions = permissionService.getMenusByRoleIds(userDetails.getRoleIds());
+		List<Permission> permissions = userDetails.getAdministratorFlag() ?
+				permissionService.getMenusByAdmin() : permissionService.getMenusByRoleIds(userDetails.getRoleIds());
+		if (userDetails.getAdministratorFlag()) {
+
+		}
 		List<Permission> parentPermissions = permissions.stream().filter(permission -> permission.getParentId() != null && permission.getParentId() <= 0).collect(Collectors.toList());
 		return BaseResponse.ok(toMenusList(parentPermissions, permissions));
 	}

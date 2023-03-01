@@ -74,6 +74,11 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
 		throw new UsernameNotFoundException(String.format("UserId [%s] not found in db", userId));
 	}
 
+	@Override
+	public Boolean loadUserByUsernameThenExists(String username) {
+		return userRepository.findByUsername(username).isPresent();
+	}
+
 	/**
 	 * Get role by userId
 	 * @param userId userId must not be null
@@ -102,6 +107,7 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
 		AppUserDetails appUserDetails = new AppUserDetails(user.getUsername(), user.getPassword(), authorityList);
 		appUserDetails.setUserId(user.getId());
 		appUserDetails.setRoleIds(roles.stream().map(Role::getId).collect(Collectors.toSet()));
+		appUserDetails.setAdministratorFlag(user.getAdministratorFlag());
 		return appUserDetails;
 	}
 }

@@ -61,7 +61,8 @@ public class UserController {
 		User user = userService.loadUserById(userDetails.getUserId());
 		UserVo userVo = userAssembler.convertToUserVo(user);
 
-		List<Permission> permissions = permissionService.listByRoleIds(userDetails.getRoleIds());
+		List<Permission> permissions = userDetails.getAdministratorFlag() ?
+				permissionService.getPermissions() : permissionService.listByRoleIds(userDetails.getRoleIds());
 		userVo.setPermissions(permissions
 				.stream()
 				.map(permission -> PairVo.of(permission.getTitle(), permission.getName()))

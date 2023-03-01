@@ -48,6 +48,15 @@ public class PermissionService {
 				.collect(Collectors.toList());
 	}
 
+	public List<Permission> getMenusByAdmin() {
+		List<Permission> permissions = this.getPermissions();
+		return permissions
+				.stream()
+				.filter(permission -> !permission.getType()
+						.equals(PermissionTypeEnum.PERMISSIONS.getValue()))
+				.collect(Collectors.toList());
+	}
+
 	public List<Permission> getPermissions() {
 		return permissionRepository.findAll();
 	}

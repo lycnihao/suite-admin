@@ -3,7 +3,6 @@ package net.koodar.suite.common.module.security.authentication;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.module.security.authentication.jwt.JwtService;
-import net.koodar.suite.common.module.security.authentication.service.AppUserDetailsService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

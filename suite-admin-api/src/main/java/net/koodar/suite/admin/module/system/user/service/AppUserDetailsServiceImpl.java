@@ -2,7 +2,7 @@ package net.koodar.suite.admin.module.system.user.service;
 
 import net.koodar.suite.admin.module.system.role.repository.RoleRepository;
 import net.koodar.suite.admin.module.system.user.repository.UserRepository;
-import net.koodar.suite.common.module.security.authentication.AppUserDetails;
+import net.koodar.suite.common.module.security.authentication.support.AppUserDetails;
 import net.koodar.suite.common.module.security.authentication.service.AppUserDetailsService;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

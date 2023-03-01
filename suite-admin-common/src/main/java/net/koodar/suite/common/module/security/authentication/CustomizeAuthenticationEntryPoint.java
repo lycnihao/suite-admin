@@ -1,4 +1,4 @@
-package net.koodar.suite.common.module.security.authorization;
+package net.koodar.suite.common.module.security.authentication;
 
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.util.ExceptionUtils;

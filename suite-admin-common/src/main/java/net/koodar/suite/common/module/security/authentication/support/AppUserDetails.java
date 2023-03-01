@@ -1,4 +1,4 @@
-package net.koodar.suite.common.module.security.authentication;
+package net.koodar.suite.common.module.security.authentication.support;
 
 import lombok.Data;
 import lombok.ToString;

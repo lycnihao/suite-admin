@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.admin.module.system.user.domain.*;
 import net.koodar.suite.admin.module.system.user.service.UserService;
-import net.koodar.suite.common.module.security.authentication.AppUserDetails;
+import net.koodar.suite.common.module.security.authentication.support.AppUserDetails;
 import net.koodar.suite.common.module.operatelog.annoation.OperateLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

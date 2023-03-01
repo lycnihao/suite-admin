@@ -1,4 +1,4 @@
-package net.koodar.suite.common.module.security.authentication;
+package net.koodar.suite.common.module.security.authentication.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

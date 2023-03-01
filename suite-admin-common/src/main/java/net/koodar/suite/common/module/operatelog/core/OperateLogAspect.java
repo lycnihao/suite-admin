@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.module.operatelog.domain.OperateLog;
-import net.koodar.suite.common.module.security.authentication.AppUserDetails;
+import net.koodar.suite.common.module.security.authentication.support.AppUserDetails;
 import net.koodar.suite.common.util.ExceptionUtils;
 import net.koodar.suite.common.util.JsonUtils;
 import net.koodar.suite.common.util.ServletUtils;

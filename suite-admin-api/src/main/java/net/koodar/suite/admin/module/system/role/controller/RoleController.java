@@ -25,7 +25,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  *
  * @author liyc
  */
-@Tag(name = "系统管理-角色")
+@Tag(name = "RoleController", description = "系统管理-角色")
 @RestController
 public class RoleController {
 

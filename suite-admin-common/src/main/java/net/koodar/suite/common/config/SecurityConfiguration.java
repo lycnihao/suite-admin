@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
  * Security configuration
@@ -59,6 +60,9 @@ public class SecurityConfiguration {
 						.requestMatchers( "/error").permitAll()
 				)
 				.authenticationProvider(authenticationProvider())
+				.formLogin(withDefaults())
+				.logout(withDefaults())
+//				.httpBasic(withDefaults())
 				// 自定义 filter
 				.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(authenticationTokenFilter, LogoutFilter.class);

@@ -1,6 +1,8 @@
 package net.koodar.suite.admin.module.system.user.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.admin.module.system.user.domain.*;
@@ -31,7 +33,8 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  * @author liyc
  */
 @OperateLog
-@Tag(name = "系统管理-用户")
+@Tag(name = "UserController", description = "系统管理-用户")
+@SecurityScheme(type = SecuritySchemeType.HTTP, scheme = "bearer")
 @Slf4j
 @RestController
 public class UserController {

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  *
  * @author liyc
  */
-@Tag(name = "系统管理-权限")
+@Tag(name = "PermissionController", description = "系统管理-权限")
 @RestController
 public class PermissionController {
 

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  *
  * @author liyc
  */
-@Tag(name = "系统管理-菜单")
+@Tag(name = "MenusController", description = "系统管理-菜单")
 @RestController
 public class MenusController {
 

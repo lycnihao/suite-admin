@@ -2,6 +2,7 @@ package net.koodar.suite.admin.module.system.user.domain;
 
 import lombok.Data;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -25,7 +26,7 @@ public class UserVo {
 
 	private Set<Long> roleIds;
 
-	private Set<PairVo<String>> permissions;
+	private Set<Map<String, String>> permissions;
 	public UserVo() {
 	}
 }

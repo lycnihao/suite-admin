@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import net.koodar.suite.admin.module.system.permission.domain.Permission;
 import net.koodar.suite.admin.module.system.role.domain.Role;
 import net.koodar.suite.common.core.support.BaseResponse;
-import net.koodar.suite.admin.module.system.user.domain.PairVo;
 import net.koodar.suite.admin.module.system.permission.service.PermissionService;
 import net.koodar.suite.admin.module.system.role.service.RoleService;
 import net.koodar.suite.admin.module.system.user.domain.assembler.UserAssembler;
@@ -68,7 +67,9 @@ public class UserController {
 				permissionService.getPermissions() : permissionService.listByRoleIds(userDetails.getRoleIds());
 		userVo.setPermissions(permissions
 				.stream()
-				.map(permission -> PairVo.of(permission.getTitle(), permission.getName()))
+				.map(permission -> Map.of(
+						"label", permission.getName(),
+						"value", permission.getName()))
 				.collect(Collectors.toSet()));
 		return BaseResponse.ok(userVo);
 	}

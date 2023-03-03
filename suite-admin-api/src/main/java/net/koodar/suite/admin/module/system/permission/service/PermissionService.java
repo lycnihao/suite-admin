@@ -5,6 +5,7 @@ import net.koodar.suite.common.core.exception.ServiceException;
 import net.koodar.suite.admin.module.system.permission.repository.PermissionRepository;
 import net.koodar.suite.admin.module.system.role.repository.RolePermissionRepository;
 import net.koodar.suite.common.module.security.authorization.DynamicSecurityMetadataSource;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import net.koodar.suite.admin.module.system.permission.domain.Permission;
@@ -24,12 +25,12 @@ public class PermissionService {
 
 	private final PermissionRepository permissionRepository;
 	private final RolePermissionRepository rolePermissionRepository;
-	private final DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
+	private final ApplicationContext applicationContext;
 
-	public PermissionService(PermissionRepository permissionRepository, RolePermissionRepository rolePermissionRepository, DynamicSecurityMetadataSource dynamicSecurityMetadataSource) {
+	public PermissionService(PermissionRepository permissionRepository, RolePermissionRepository rolePermissionRepository, ApplicationContext applicationContext) {
 		this.permissionRepository = permissionRepository;
 		this.rolePermissionRepository = rolePermissionRepository;
-		this.dynamicSecurityMetadataSource = dynamicSecurityMetadataSource;
+		this.applicationContext = applicationContext;
 	}
 
 	public List<Permission> listByRoleId(Long roleId) {
@@ -107,6 +108,7 @@ public class PermissionService {
 		permission.setKeepAlive(permissionParam.getKeepAlive());
 		permissionRepository.save(permission);
 		// 刷新权限
+		DynamicSecurityMetadataSource dynamicSecurityMetadataSource = (DynamicSecurityMetadataSource) applicationContext.getBean("DynamicSecurityMetadataSource");
 		dynamicSecurityMetadataSource.loadDataSource();
 	}
 

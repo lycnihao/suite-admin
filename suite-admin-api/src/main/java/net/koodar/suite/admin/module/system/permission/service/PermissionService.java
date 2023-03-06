@@ -108,7 +108,7 @@ public class PermissionService {
 		permission.setKeepAlive(permissionParam.getKeepAlive());
 		permissionRepository.save(permission);
 		// 刷新权限
-		DynamicSecurityMetadataSource dynamicSecurityMetadataSource = (DynamicSecurityMetadataSource) applicationContext.getBean("DynamicSecurityMetadataSource");
+		DynamicSecurityMetadataSource dynamicSecurityMetadataSource = (DynamicSecurityMetadataSource) applicationContext.getBean("dynamicSecurityMetadataSource");
 		dynamicSecurityMetadataSource.loadDataSource();
 	}
 

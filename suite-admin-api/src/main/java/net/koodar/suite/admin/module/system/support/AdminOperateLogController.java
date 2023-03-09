@@ -1,4 +1,4 @@
-package net.koodar.suite.admin.module.system.operateLog;
+package net.koodar.suite.admin.module.system.support;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,9 +20,9 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  *
  * @author liyc
  */
-@Tag(name = "OperateLogController", description = "操作日志")
+@Tag(name = "AdminOperateLogController", description = "操作日志")
 @RestController
-public class OperateLogController {
+public class AdminOperateLogController {
 
 	@Autowired
 	private OperateLogService operateLogService;

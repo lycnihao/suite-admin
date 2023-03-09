@@ -13,7 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import static org.springframework.data.domain.Sort.Direction.ASC;
+import static org.springframework.data.domain.Sort.Direction.DESC;
 
 /**
  * 操作日志接口
@@ -30,7 +30,7 @@ public class OperateLogController {
 	@Operation(summary = "查询操作日志列表")
 	@GetMapping("/operateLog/list")
 	public Page<OperateLog> getUserList(
-			@PageableDefault(sort = {"createTime"}, direction = ASC) Pageable pageable,
+			@PageableDefault(sort = {"createTime"}, direction = DESC) Pageable pageable,
 			OperateLogQuery operateLogQuery) {
 		return operateLogService.pageBy(operateLogQuery, pageable);
 	}

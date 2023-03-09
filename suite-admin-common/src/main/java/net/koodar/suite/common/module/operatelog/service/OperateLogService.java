@@ -57,6 +57,12 @@ public class OperateLogService {
 				Date endDate = DateUtil.parseDate(operateLogQuery.getEndDate());
 				predicates.add(criteriaBuilder.between(root.get("createTime"), startDate, endDate));
 			}
+
+			if (operateLogQuery.getSuccessFlag() != null) {
+				predicates.add(
+						criteriaBuilder.equal(root.get("successFlag"), operateLogQuery.getSuccessFlag()));
+			}
+
 			if (predicates.size() > 0) {
 				query.where(predicates.toArray(new Predicate[0]));
 			}

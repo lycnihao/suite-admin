@@ -16,5 +16,7 @@ public class OperateLogQuery {
 
 	private String endDate;
 
+	private Boolean successFlag;
+
 
 }

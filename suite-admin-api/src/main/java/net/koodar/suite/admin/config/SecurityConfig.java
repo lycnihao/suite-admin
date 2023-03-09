@@ -13,8 +13,8 @@ import net.koodar.suite.admin.module.system.user.manager.UserRoleManager;
 import net.koodar.suite.admin.module.system.user.service.UserService;
 import net.koodar.suite.common.core.exception.ServiceException;
 import net.koodar.suite.common.core.properties.SecurityProperties;
-import net.koodar.suite.common.module.security.SuperAdminInitializer;
-import net.koodar.suite.common.module.security.authorization.DynamicSecurityService;
+import net.koodar.suite.common.support.security.SuperAdminInitializer;
+import net.koodar.suite.common.support.security.authorization.DynamicSecurityService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

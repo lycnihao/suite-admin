@@ -4,7 +4,7 @@ import java.util.*;
 import net.koodar.suite.common.core.exception.ServiceException;
 import net.koodar.suite.admin.module.system.permission.repository.PermissionRepository;
 import net.koodar.suite.admin.module.system.role.repository.RolePermissionRepository;
-import net.koodar.suite.common.module.security.authorization.DynamicSecurityMetadataSource;
+import net.koodar.suite.common.support.security.authorization.DynamicSecurityMetadataSource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

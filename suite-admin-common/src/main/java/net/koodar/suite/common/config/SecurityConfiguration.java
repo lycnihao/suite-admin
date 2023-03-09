@@ -1,9 +1,9 @@
 package net.koodar.suite.common.config;
 
 import lombok.RequiredArgsConstructor;
-import net.koodar.suite.common.module.security.SecurityConfigurer;
-import net.koodar.suite.common.module.security.authentication.*;
-import net.koodar.suite.common.module.security.authentication.AppUserDetailsService;
+import net.koodar.suite.common.support.security.SecurityConfigurer;
+import net.koodar.suite.common.support.security.authentication.*;
+import net.koodar.suite.common.support.security.authentication.AppUserDetailsService;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

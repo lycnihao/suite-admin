@@ -1,6 +1,7 @@
 package net.koodar.suite.common.support.security.authentication.support;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -13,7 +14,8 @@ import java.util.Set;
  *
  * @author liyc
  */
-@Data
+@Getter
+@Setter
 @ToString(callSuper = true)
 public class AppUserDetails extends User {
 

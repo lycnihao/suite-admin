@@ -1,6 +1,5 @@
 package net.koodar.suite.common.support.security.authentication.logout;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +37,7 @@ public class LogoutConfigurer implements SecurityConfigurer {
 	public static class CustomizeLogoutSuccessHandler implements LogoutSuccessHandler {
 
 		@Override
-		public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+		public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
 			if (Objects.isNull(authentication)) {
 				return;

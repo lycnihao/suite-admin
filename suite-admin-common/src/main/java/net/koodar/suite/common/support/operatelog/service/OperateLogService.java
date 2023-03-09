@@ -36,7 +36,7 @@ public class OperateLogService {
 
 	public OperateLog detail(Long operateLogId) {
 		Optional<OperateLog> operateLog = operateLogRepository.findById(operateLogId);
-		if (!operateLog.isPresent()) {
+		if (operateLog.isEmpty()) {
 			throw new ServiceException("非法参数，查询不到id:" + operateLogId);
 		}
 		return operateLog.get();

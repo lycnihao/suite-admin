@@ -42,9 +42,6 @@ public class MenusController {
 		AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Permission> permissions = userDetails.getAdministratorFlag() ?
 				permissionService.getMenusByAdmin() : permissionService.getMenusByRoleIds(userDetails.getRoleIds());
-		if (userDetails.getAdministratorFlag()) {
-
-		}
 		List<Permission> parentPermissions = permissions.stream().filter(permission -> permission.getParentId() != null && permission.getParentId() <= 0).collect(Collectors.toList());
 		return BaseResponse.ok(toMenusList(parentPermissions, permissions));
 	}

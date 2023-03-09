@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
  */
 public interface SecurityConfigurer {
 
+	/**
+	 * configure 配置
+	 * @param httpSecurity httpSecurity
+	 */
 	void configure(HttpSecurity httpSecurity);
 
 }

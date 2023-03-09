@@ -63,7 +63,7 @@ public class OperateLogAspect {
 			String operateMethod = className + "." + methodName;
 			// 失败信息
 			String failReason = null;
-			Boolean successFlag = true;
+			boolean successFlag = true;
 			if (e != null) {
 				successFlag = false;
 				failReason = ExceptionUtils.getStackTrace(e);
@@ -100,9 +100,8 @@ public class OperateLogAspect {
 	/**
 	 * swagger Operation
 	 *
-	 * @param joinPoint
-	 * @return
-	 * @throws Exception
+	 * @param joinPoint 连接点
+	 * @return 注解
 	 */
 	private Operation getOperation(JoinPoint joinPoint) {
 		Signature signature = joinPoint.getSignature();
@@ -119,11 +118,7 @@ public class OperateLogAspect {
 		Signature signature = joinPoint.getSignature();
 		MethodSignature methodSignature = (MethodSignature) signature;
 		Method method = methodSignature.getMethod();
-		Tag classAnnotation = AnnotationUtils.findAnnotation(method.getDeclaringClass(), Tag.class);
-		if (method != null) {
-			return classAnnotation;
-		}
-		return null;
+		return AnnotationUtils.findAnnotation(method.getDeclaringClass(), Tag.class);
 	}
 
 }

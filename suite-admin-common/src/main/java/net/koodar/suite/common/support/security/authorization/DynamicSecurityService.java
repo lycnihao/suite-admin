@@ -11,6 +11,10 @@ import java.util.Map;
  */
 public interface DynamicSecurityService {
 
+	/**
+	 * 加载资源权限
+	 * @return 资源权限
+	 */
 	Map<String, Pair<String, String>> loadDataSource();
 
 }

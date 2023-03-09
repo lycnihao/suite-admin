@@ -7,7 +7,6 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import net.koodar.suite.common.core.support.BaseResponse;
 import net.koodar.suite.common.util.JsonUtils;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,7 +19,7 @@ import java.io.IOException;
 public class CustomizeAccessDeniedHandler implements AccessDeniedHandler {
 
 	@Override
-	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
 		BaseResponse<Object> errorDetail = new BaseResponse<>();
 		errorDetail.setCode(HttpStatus.FORBIDDEN.value());
 		errorDetail.setMessage("禁止访问");

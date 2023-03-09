@@ -11,7 +11,6 @@ import org.springframework.util.Assert;
 import net.koodar.suite.common.core.support.BaseResponse;
 import net.koodar.suite.common.util.JsonUtils;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,7 +25,7 @@ import java.util.Collections;
 public class CustomizeAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
 		BaseResponse<Object> errorDetail = handleBaseException(authException);
 		errorDetail.setData(Collections.singletonMap("uri", request.getRequestURI()));
 		response.setCharacterEncoding("utf-8");

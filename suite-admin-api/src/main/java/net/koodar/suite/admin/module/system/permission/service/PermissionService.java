@@ -78,7 +78,7 @@ public class PermissionService {
 		if (PermissionTypeEnum.MENU.getValue() != permissionParam.getType() &&
 				StringUtils.hasLength(permissionParam.getParentKey())) {
 			Optional<Permission> parentOptional = permissionRepository.findByName(permissionParam.getParentKey());
-			if (!parentOptional.isPresent()) {
+			if (parentOptional.isEmpty()) {
 				throw new ServiceException("父节点不存在");
 			}
 			parenId = parentOptional.get().getId();

@@ -31,9 +31,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
-	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
+	private final SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
 			.getContextHolderStrategy();
-	private AuthenticationEntryPointFailureHandler failureHandler = new AuthenticationEntryPointFailureHandler(new CustomizeAuthenticationEntryPoint());
+	private final AuthenticationEntryPointFailureHandler failureHandler = new AuthenticationEntryPointFailureHandler(new CustomizeAuthenticationEntryPoint());
 
 	private static final String AUTHENTICATION_SCHEME = "Bearer ";
 

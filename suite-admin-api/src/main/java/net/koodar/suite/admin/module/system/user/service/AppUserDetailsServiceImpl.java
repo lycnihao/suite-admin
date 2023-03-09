@@ -6,7 +6,6 @@ import net.koodar.suite.common.support.security.authentication.support.AppUserDe
 import net.koodar.suite.common.support.security.authentication.AppUserDetailsService;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import net.koodar.suite.admin.module.system.role.domain.Role;
@@ -55,28 +54,6 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
 			return buildAppUserDetails(user, roles);
 		}
 		throw new UsernameNotFoundException(String.format("Username [%s] not found in db", username));
-	}
-
-	/**
-	 * userId user details by username
-	 * @param userId userId must not null
-	 * @return userDetails of AppUserDetails
-	 * @throws UsernameNotFoundException not found exception
-	 */
-	@Override
-	public UserDetails loadUserById(@NonNull Long userId) throws UsernameNotFoundException {
-		Optional<User> optionalUser = userRepository.findById(userId);
-		if (optionalUser.isPresent()) {
-			User user = optionalUser.get();
-			List<Role> roles = getRoleByUserId(user.getId());
-			return buildAppUserDetails(user, roles);
-		}
-		throw new UsernameNotFoundException(String.format("UserId [%s] not found in db", userId));
-	}
-
-	@Override
-	public Boolean loadUserByUsernameThenExists(String username) {
-		return userRepository.findByUsername(username).isPresent();
 	}
 
 	/**

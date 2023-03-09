@@ -55,16 +55,13 @@ public class SecurityConfig {
 			}
 			throw new ServiceException(String.format("数据异常 角色id[%s]不存在", p.getRoleId()));
 		}));
-		return new DynamicSecurityService() {
-			@Override
-			public Map<String, Pair<String, String>> loadDataSource() {
-				Map<String, Pair<String, String>> map = new ConcurrentHashMap<>(permissionList.size());
-				for (Permission permission : permissionList) {
-					map.put(permission.getPath(),
-							Pair.of(permission.getName(), roleCodeMap.get(permission.getId())));
-				}
-				return map;
+		return () -> {
+			Map<String, Pair<String, String>> map = new ConcurrentHashMap<>(permissionList.size());
+			for (Permission permission : permissionList) {
+				map.put(permission.getPath(),
+						Pair.of(permission.getName(), roleCodeMap.get(permission.getId())));
 			}
+			return map;
 		};
 	}
 

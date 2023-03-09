@@ -81,7 +81,8 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
 				.stream()
 				.map(role -> new SimpleGrantedAuthority(role.getCode()))
 				.collect(Collectors.toList());
-		AppUserDetails appUserDetails = new AppUserDetails(user.getUsername(), user.getPassword(), authorityList);
+		boolean userEnabled = user.getStatus() == 1;
+		AppUserDetails appUserDetails = new AppUserDetails(user.getUsername(), user.getPassword(), userEnabled, true,true,true, authorityList);
 		appUserDetails.setUserId(user.getId());
 		appUserDetails.setRoleIds(roles.stream().map(Role::getId).collect(Collectors.toSet()));
 		appUserDetails.setAdministratorFlag(user.getAdministratorFlag());

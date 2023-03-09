@@ -62,7 +62,6 @@ public class SecurityConfiguration {
 				.authenticationProvider(authenticationProvider())
 				.formLogin(withDefaults())
 				.logout(withDefaults())
-//				.httpBasic(withDefaults())
 				// 自定义 filter
 				.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(authenticationTokenFilter, LogoutFilter.class);

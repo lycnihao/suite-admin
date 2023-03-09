@@ -2,9 +2,13 @@ package net.koodar.suite.common.support.security.authentication.logout;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.core.support.BaseResponse;
+import net.koodar.suite.common.support.loginlog.LoginLogService;
+import net.koodar.suite.common.support.loginlog.domain.LoginLogResultEnum;
 import net.koodar.suite.common.support.security.SecurityConfigurer;
+import net.koodar.suite.common.support.security.authentication.support.AppUserDetails;
 import net.koodar.suite.common.util.JsonUtils;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,13 +25,17 @@ import java.util.Objects;
  * @author liyc
  */
 @Component
+@RequiredArgsConstructor
 public class LogoutConfigurer implements SecurityConfigurer {
+
+	private final LoginLogService loginLogService;
+
 	@Override
 	public void configure(HttpSecurity httpSecurity) {
 		try {
 			httpSecurity
 					.logout((authorize) -> authorize
-					.logoutSuccessHandler(new CustomizeLogoutSuccessHandler()));
+					.logoutSuccessHandler(new CustomizeLogoutSuccessHandler(loginLogService)));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -36,12 +44,21 @@ public class LogoutConfigurer implements SecurityConfigurer {
 	@Slf4j
 	public static class CustomizeLogoutSuccessHandler implements LogoutSuccessHandler {
 
+		private final LoginLogService loginLogService;
+
+		public CustomizeLogoutSuccessHandler(LoginLogService loginLogService) {
+			this.loginLogService = loginLogService;
+		}
+
 		@Override
 		public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
 			if (Objects.isNull(authentication)) {
 				return;
 			}
+
+			// 记录登出日志
+			loginLogService.log((AppUserDetails)authentication.getPrincipal(), LoginLogResultEnum.LOGIN_OUT, "");
 
 			response.setCharacterEncoding("utf-8");
 			response.setStatus(HttpServletResponse.SC_OK);

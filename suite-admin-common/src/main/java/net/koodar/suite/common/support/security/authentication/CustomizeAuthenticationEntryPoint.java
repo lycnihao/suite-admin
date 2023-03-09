@@ -49,11 +49,9 @@ public class CustomizeAuthenticationEntryPoint implements AuthenticationEntryPoi
 		} else if (t instanceof DisabledException){
 			errorDetail.setMessage("账号被禁用");
 		} else if (t instanceof LockedException){
-			errorDetail.setMessage("账户被锁定");
-		} else if (t instanceof AuthenticationCredentialsNotFoundException){
-			errorDetail.setMessage("用户身份凭证未找到");
-		} else if (t instanceof AuthenticationServiceException){
-			errorDetail.setMessage("用户身份认证服务异常");
+			errorDetail.setMessage("账号认被锁定");
+		} else if (t instanceof CredentialsExpiredException){
+			errorDetail.setMessage("账号凭证已过期");
 		} else if (t instanceof BadCredentialsException){
 			errorDetail.setMessage(t.getMessage());
 		} else {

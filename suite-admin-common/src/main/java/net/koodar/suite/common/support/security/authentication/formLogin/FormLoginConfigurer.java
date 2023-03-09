@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.core.support.BaseResponse;
+import net.koodar.suite.common.support.loginlog.LoginLogService;
+import net.koodar.suite.common.support.loginlog.domain.LoginLogResultEnum;
 import net.koodar.suite.common.support.security.authentication.jwt.JwtService;
 import net.koodar.suite.common.support.security.SecurityConfigurer;
 import net.koodar.suite.common.support.security.authentication.CustomizeAuthenticationEntryPoint;
@@ -31,9 +33,11 @@ import java.io.IOException;
 public class FormLoginConfigurer implements SecurityConfigurer {
 
 	private final JwtService jwtService;
+	private final LoginLogService loginLogService;
 
-	public FormLoginConfigurer(JwtService jwtService) {
+	public FormLoginConfigurer(JwtService jwtService, LoginLogService loginLogService) {
 		this.jwtService = jwtService;
+		this.loginLogService = loginLogService;
 	}
 
 	@Override
@@ -41,7 +45,7 @@ public class FormLoginConfigurer implements SecurityConfigurer {
 		try {
 			httpSecurity
 					.formLogin((authorize) -> authorize.permitAll()
-					.successHandler(new CustomizeAuthenticationSuccessHandler())
+					.successHandler(new CustomizeAuthenticationSuccessHandler(loginLogService))
 					.failureHandler(new AuthenticationEntryPointFailureHandler(new CustomizeAuthenticationEntryPoint())));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -49,14 +53,24 @@ public class FormLoginConfigurer implements SecurityConfigurer {
 	}
 
 	public class CustomizeAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+		private final LoginLogService loginLogService;
+
+		public CustomizeAuthenticationSuccessHandler(LoginLogService loginLogService) {
+			this.loginLogService = loginLogService;
+		}
+
 		@Override
 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
-			AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			AppUserDetails userDetails = (AppUserDetails) authentication.getPrincipal();
 
+			// 记录登录日志
+			loginLogService.log(userDetails, LoginLogResultEnum.LOGIN_SUCCESS, "");
+
+			// 生成Token
 			String jwtToken = jwtService.generateToken(userDetails);
 
-			// Generate new token
 			AuthToken token = new AuthToken();
 			token.setAccessToken(jwtToken);
 			token.setExpiredIn(1000 * 60 * 24);

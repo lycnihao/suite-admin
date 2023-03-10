@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.support.security.authentication.jwt.JwtService;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
@@ -60,7 +60,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
 		if (jwtService.isTokenExpired(jwt)) {
 			this.securityContextHolderStrategy.clearContext();
-			this.failureHandler.onAuthenticationFailure(request, response, new AccountExpiredException("token过期请重新登录"));
+			this.failureHandler.onAuthenticationFailure(request, response, new CredentialsExpiredException("token过期请重新登录"));
 			return;
 		}
 

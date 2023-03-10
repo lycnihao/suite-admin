@@ -61,7 +61,7 @@ public class JwtService {
 		try {
 			return extractExpiration(token).before(new Date());
 		} catch (ExpiredJwtException e) {
-			return false;
+			return true;
 		}
 	}
 

@@ -165,13 +165,11 @@ public class DataTracerService {
 	}
 
 	public void save(DataTracer dataTracer) {
-		// todo 待优化
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		dataTracer.setUserId(userDetails.getUserId());
 		dataTracer.setUsername(userDetails.getUsername());
-		dataTracer.setIp(ServletUtils.getClientIP(request));
-		dataTracer.setUserAgent(ServletUtils.getHeaderIgnoreCase(request, "user-agent"));
+		dataTracer.setIp(userDetails.getIp());
+		dataTracer.setUserAgent(userDetails.getUserAgent());
 		dataTracerRepository.save(dataTracer);
 	}
 

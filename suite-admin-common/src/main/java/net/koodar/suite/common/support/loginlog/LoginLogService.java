@@ -53,12 +53,11 @@ public class LoginLogService {
 	 * @param remark 备注
 	 */
 	public void log(AppUserDetails user, LoginLogResultEnum result, String remark) {
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		LoginLog loginEntity = LoginLog.builder()
 				.userId(user.getUserId())
 				.userName(user.getUsername())
-				.userAgent(ServletUtils.getHeaderIgnoreCase(request, "user-agent"))
-				.loginIp(ServletUtils.getClientIP(request))
+				.userAgent(user.getUserAgent())
+				.loginIp(user.getIp())
 				.remark(remark)
 				.loginResult(result.getValue())
 				.build();

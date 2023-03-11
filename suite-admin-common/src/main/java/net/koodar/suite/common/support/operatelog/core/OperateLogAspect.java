@@ -76,8 +76,8 @@ public class OperateLogAspect {
 							.url(request.getRequestURI())
 							.method(operateMethod)
 							.param(params)
-							.ip(ServletUtils.getClientIP(request))
-							.userAgent(ServletUtils.getHeaderIgnoreCase(request, "user-agent"))
+							.ip(user.getIp())
+							.userAgent(user.getUserAgent())
 							.failReason(failReason)
 							.successFlag(successFlag).build();
 

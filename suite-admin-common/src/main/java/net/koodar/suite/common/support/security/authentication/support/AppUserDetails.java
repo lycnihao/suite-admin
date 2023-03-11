@@ -22,6 +22,8 @@ public class AppUserDetails extends User {
 	private Long userId;
 	private Set<Long> roleIds;
 	private Boolean administratorFlag;
+	private String ip;
+	private String userAgent;
 
 	public AppUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);

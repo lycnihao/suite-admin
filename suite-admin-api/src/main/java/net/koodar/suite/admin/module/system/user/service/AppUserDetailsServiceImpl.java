@@ -1,9 +1,11 @@
 package net.koodar.suite.admin.module.system.user.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import net.koodar.suite.admin.module.system.role.repository.RoleRepository;
 import net.koodar.suite.admin.module.system.user.repository.UserRepository;
 import net.koodar.suite.common.support.security.authentication.support.AppUserDetails;
 import net.koodar.suite.common.support.security.authentication.AppUserDetailsService;
+import net.koodar.suite.common.util.ServletUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,9 +14,12 @@ import net.koodar.suite.admin.module.system.role.domain.Role;
 import net.koodar.suite.admin.module.system.user.domain.User;
 import net.koodar.suite.admin.module.system.role.domain.UserRole;
 import net.koodar.suite.admin.module.system.role.repository.UserRoleRepository;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -86,6 +91,9 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
 		appUserDetails.setUserId(user.getId());
 		appUserDetails.setRoleIds(roles.stream().map(Role::getId).collect(Collectors.toSet()));
 		appUserDetails.setAdministratorFlag(user.getAdministratorFlag());
+		HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+		appUserDetails.setIp(ServletUtils.getClientIP(request));
+		appUserDetails.setUserAgent(ServletUtils.getHeaderIgnoreCase(request, "user-agent"));
 		return appUserDetails;
 	}
 }

@@ -68,19 +68,19 @@ public class Permission extends BaseEntity {
 	private String redirect;
 
 	/**
-	 * 页面组件
+	 * 组件路径
 	 */
 	@Column(name = "component", length = 127)
 	private String component;
 
 	/**
-	 * 排序编号
+	 * 显示排序
 	 */
 	@Column(name = "`sort`", nullable = false)
 	private Integer sort = 0;
 
 	/**
-	 * 缓存该路由
+	 * 是否缓存
 	 */
 	@Column(name = "keep_alive", nullable = false)
 	private Boolean keepAlive = true;

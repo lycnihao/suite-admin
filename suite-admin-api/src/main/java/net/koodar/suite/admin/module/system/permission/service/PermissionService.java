@@ -4,7 +4,10 @@ import java.util.*;
 import net.koodar.suite.common.core.exception.ServiceException;
 import net.koodar.suite.admin.module.system.permission.repository.PermissionRepository;
 import net.koodar.suite.admin.module.system.role.repository.RolePermissionRepository;
+import net.koodar.suite.common.support.datatracer.DataTracerService;
+import net.koodar.suite.common.support.datatracer.domain.DataTracer;
 import net.koodar.suite.common.support.security.authorization.DynamicSecurityMetadataSource;
+import net.koodar.suite.common.util.BeanUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -27,10 +30,13 @@ public class PermissionService {
 	private final RolePermissionRepository rolePermissionRepository;
 	private final ApplicationContext applicationContext;
 
-	public PermissionService(PermissionRepository permissionRepository, RolePermissionRepository rolePermissionRepository, ApplicationContext applicationContext) {
+	private final DataTracerService dataTracerService;
+
+	public PermissionService(PermissionRepository permissionRepository, RolePermissionRepository rolePermissionRepository, ApplicationContext applicationContext, DataTracerService dataTracerService) {
 		this.permissionRepository = permissionRepository;
 		this.rolePermissionRepository = rolePermissionRepository;
 		this.applicationContext = applicationContext;
+		this.dataTracerService = dataTracerService;
 	}
 
 	public List<Permission> listByRoleId(Long roleId) {
@@ -95,18 +101,10 @@ public class PermissionService {
 		}
 
 		Permission permission = new Permission();
+		BeanUtil.copy(permissionParam, permission);
 		permission.setParentId(parenId);
-		permission.setId(permissionParam.getId());
-		permission.setName(permissionParam.getName());
-		permission.setTitle(permissionParam.getTitle());
-		permission.setType(permissionParam.getType());
-		permission.setIcon(permissionParam.getIcon());
-		permission.setPath(permissionParam.getPath());
-		permission.setRedirect(permissionParam.getRedirect());
-		permission.setComponent(permissionParam.getComponent());
-		permission.setSort(permissionParam.getSort());
-		permission.setKeepAlive(permissionParam.getKeepAlive());
 		permissionRepository.save(permission);
+
 		// 刷新权限
 		DynamicSecurityMetadataSource dynamicSecurityMetadataSource = (DynamicSecurityMetadataSource) applicationContext.getBean("dynamicSecurityMetadataSource");
 		dynamicSecurityMetadataSource.loadDataSource();

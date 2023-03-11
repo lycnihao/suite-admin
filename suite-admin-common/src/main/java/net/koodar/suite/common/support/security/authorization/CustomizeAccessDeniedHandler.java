@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import net.koodar.suite.common.core.support.BaseResponse;
+import net.koodar.suite.common.support.BaseResponse;
 import net.koodar.suite.common.util.JsonUtils;
 
 import jakarta.servlet.http.HttpServletRequest;

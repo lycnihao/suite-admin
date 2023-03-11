@@ -2,7 +2,7 @@ package net.koodar.suite.common.support.datatracer.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import net.koodar.suite.common.core.support.BaseEntity;
+import net.koodar.suite.common.support.BaseEntity;
 
 /**
  * 数据记录

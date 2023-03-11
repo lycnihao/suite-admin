@@ -2,21 +2,16 @@ package net.koodar.suite.common.support.datatracer;
 
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import net.koodar.suite.common.core.exception.ServiceException;
+import net.koodar.suite.common.exception.ServiceException;
 import net.koodar.suite.common.support.datatracer.annoation.DataTracerFieldLabel;
 import net.koodar.suite.common.support.datatracer.domain.DataTracer;
 import net.koodar.suite.common.support.datatracer.domain.DataTracerContentBO;
 import net.koodar.suite.common.support.security.authentication.support.AppUserDetails;
 import net.koodar.suite.common.util.JsonUtils;
-import net.koodar.suite.common.util.ServletUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;

@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.koodar.suite.common.core.support.BaseResponse;
+import net.koodar.suite.common.support.BaseResponse;
 import net.koodar.suite.common.support.loginlog.LoginLogService;
 import net.koodar.suite.common.support.loginlog.domain.LoginLogResultEnum;
 import net.koodar.suite.common.support.security.SecurityConfigurer;

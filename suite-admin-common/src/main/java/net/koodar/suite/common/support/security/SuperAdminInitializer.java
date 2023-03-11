@@ -1,7 +1,7 @@
 package net.koodar.suite.common.support.security;
 
 import lombok.extern.slf4j.Slf4j;
-import net.koodar.suite.common.core.properties.SecurityProperties.Initializer;
+import net.koodar.suite.common.properties.SecurityProperties.Initializer;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;

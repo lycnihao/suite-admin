@@ -8,7 +8,7 @@ import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.util.Assert;
-import net.koodar.suite.common.core.support.BaseResponse;
+import net.koodar.suite.common.support.BaseResponse;
 import net.koodar.suite.common.util.JsonUtils;
 
 import jakarta.servlet.http.HttpServletRequest;

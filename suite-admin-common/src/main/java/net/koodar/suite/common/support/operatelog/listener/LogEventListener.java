@@ -3,7 +3,7 @@ package net.koodar.suite.common.support.operatelog.listener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.support.operatelog.domain.OperateLog;
-import net.koodar.suite.common.support.operatelog.repository.OperateLogRepository;
+import net.koodar.suite.common.support.operatelog.OperateLogRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;

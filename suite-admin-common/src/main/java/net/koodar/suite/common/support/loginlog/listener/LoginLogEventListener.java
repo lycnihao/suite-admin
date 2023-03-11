@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.suite.common.support.loginlog.LoginLogRepository;
 import net.koodar.suite.common.support.loginlog.domain.LoginLog;
-import net.koodar.suite.common.support.operatelog.domain.OperateLog;
-import net.koodar.suite.common.support.operatelog.repository.OperateLogRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;

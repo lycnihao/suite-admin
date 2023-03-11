@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import net.koodar.suite.common.core.support.BaseResponse;
+import net.koodar.suite.common.support.BaseResponse;
 import net.koodar.suite.common.support.loginlog.LoginLogService;
 import net.koodar.suite.common.support.loginlog.domain.LoginLogResultEnum;
 import net.koodar.suite.common.support.security.authentication.jwt.JwtService;
@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
